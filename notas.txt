@@ -1,0 +1,10 @@
+Temática Carnaval de  pulpos Intergalácticos.
+
+Juegos
+	Bomberman (canvas)
+	Buscaminas (dom)
+
+
+
+Reuniones:
+	hoy 4:30 los demás días a las 6 y el martes todo el día
