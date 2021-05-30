@@ -16,8 +16,8 @@ function escalarCanvas() {
 
 // Dibuja todos los elementos del juego (personajes, bloques, etc.)
 function draw(factor) {
-
 	player.draw(ctx, factor);
+	map.drawElements(ctx, factor);
 }
 
 
@@ -73,6 +73,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	})
 
+	let x = 1; 
+	let y = 0;
+
+	map.setContentOfTile(x, y, new Pulpito(x*TILESIZE, y*TILESIZE, 1, 1, null))
+	map.setContentOfTile(5, 7, new Pulpito(5*TILESIZE, 7*TILESIZE, 1, 1, null))
 	player = new Pulpito(0,0,1,1,null)
 	gameCycle()
 })
