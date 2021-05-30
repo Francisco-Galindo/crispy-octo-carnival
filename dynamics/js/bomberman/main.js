@@ -1,6 +1,3 @@
-const VIRTUALHEIGHT = 224;
-const VIRTUALWIDTH = 256;
-
 let gameDiv;
 let canvas;
 let ctx;
