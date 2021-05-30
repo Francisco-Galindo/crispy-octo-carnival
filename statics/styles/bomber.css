@@ -9,7 +9,7 @@ main {
 #juego {
     width: 40vw;
     height: 35vw;
-    background-color: aqua;
+    background-color: gray;
     margin: auto;
 }
 *:focus {

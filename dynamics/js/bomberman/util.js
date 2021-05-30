@@ -38,33 +38,23 @@ class Pulpito extends Entidad {
 }
 
 class Bloque extends Entidad {
-	constructor(x, y, colisionable) {
-		super(null, TILESIZE * x, TILESIZE * y)
-	}
-}
-
-class Suelo extends Bloque {
 	constructor(x, y) {
-		super(x, y, false);
-		let spriteSheet = new Image();
-		spriteSheet.src = "../statics/img/bomberman/sprites/crate.png";
-		this.spriteSheet = spriteSheet;
-
+		super(null, TILESIZE * x, TILESIZE * y)
 	}
 }
 
 class Pilar extends Bloque {
 	constructor(x, y) {
-		super(x, y, true);
+		super(x, y);
 		let spriteSheet = new Image();
-		spriteSheet.src = "../statics/img/bomberman/sprites/crate.png";
+		spriteSheet.src = "../statics/img/bomberman/sprites/pilar.png";
 		this.spriteSheet = spriteSheet;
 	}
 }
 
 class Caja extends Bloque {
 	constructor(x, y) {
-		super(x, y, true);
+		super(x, y);
 		let spriteSheet = new Image();
 		spriteSheet.src = "../statics/img/bomberman/sprites/crate.png";
 		this.spriteSheet = spriteSheet;
@@ -73,30 +63,34 @@ class Caja extends Bloque {
 
 class Bomba extends Bloque {
 	constructor(x, y) {
-		super(x, y, true);
+		super(x, y);
 		let spriteSheet = new Image();
-		spriteSheet.src = "../statics/img/bomberman/sprites/crate.png";
+		spriteSheet.src = "../statics/img/bomberman/sprites/bomb.png";
 		this.spriteSheet = spriteSheet;
 	}
 }
 
 class Explosion extends Bloque {
 	constructor(x, y) {
-		super(x, y, true);
+		super(x, y);
 		let spriteSheet = new Image();
 		spriteSheet.src = "../statics/img/bomberman/sprites/crate.png";
 		this.spriteSheet = spriteSheet;
 	}
 }
 
+
+
 let map = Array.from(Array((VIRTUALHEIGHT / TILESIZE) -1), () => 
     Array.from(Array((VIRTUALWIDTH / TILESIZE)), () => null));
 
-map.inicializar = function(x, y) {
+map.initialise = function(x, y) {
 	if ((y == 0 || y == map.length-1) || (x == 0 || x == map[y].length-1)) {
-		map.setContentOfTile(x, y, new Pulpito(x*TILESIZE, y*TILESIZE, 1, 1, null))
+		map.setContentOfTile(x, y, new Pilar(x, y))
 	} else if (y % 2 == 0 && x % 2 == 0) {
-		map.setContentOfTile(x, y, new Pulpito(x*TILESIZE, y*TILESIZE, 1, 1, null))
+		map.setContentOfTile(x, y, new Pilar(x, y))
+	} else if (Math.random() > 0.5) {
+		map.setContentOfTile(x, y, new Caja(x, y))
 	}
 }
 
