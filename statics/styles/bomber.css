@@ -15,6 +15,3 @@ main {
 *:focus {
     outline: none;
 }
-canvas {
-    image-rendering: crisp-edges;
-}
