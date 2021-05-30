@@ -3,6 +3,9 @@ let canvas;
 let ctx;
 let gameFocused;
 let pause = true;
+let img = new Image();
+let player;
+let startTime;
 
 /* Se modifica el tamaño del canvas para que sea el mismo que su
 div padre */
@@ -14,9 +17,7 @@ function escalarCanvas() {
 // Dibuja todos los elementos del juego (personajes, bloques, etc.)
 function draw(factor) {
     
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.rect(0, 0, 250 * factor, 112 * factor);
-    ctx.fill();
+    player.draw(ctx, factor);
 }
 
 
@@ -26,7 +27,7 @@ function drawPauseScreen(factor) {
     ctx.fillRect(0,0, canvas.width, canvas.height);
     ctx.globalAlpha = 1.0;
     ctx.font = "50px Consolas";
-    ctx.fillText(`Pausa`, 0, 20 * factor)
+    ctx.fillText(`Pausa`, 0, 20 * factor);
     ctx.fill()
     ctx.closePath();
 }
@@ -53,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gameDiv = document.getElementById("juego");
     canvas = document.getElementById("juego-canvas");
     ctx = canvas.getContext("2d");
+    console.log(canvas)
 
 
     gameDiv.addEventListener("focus", () => {
@@ -71,5 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
-    gameCycle();
+    player = new Pulpito(0,0,1,1,null)
+    gameCycle()
 })
