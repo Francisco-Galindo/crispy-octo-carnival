@@ -8,6 +8,7 @@ let player;
 let startTime;
 let frameCount = 0;
 let then;
+let pulpitos = []
 
 /* Se modifica el tamaño del canvas para que sea el mismo que su
 div padre */
@@ -19,12 +20,23 @@ function scaleCanvas() {
 // Dibuja todos los elementos del juego (personajes, bloques, etc.)
 function draw(factor) {
 	map.drawElements(ctx, factor);
-	player.draw(ctx, factor);
+	for (let pulpo of pulpitos) {
+		pulpo.draw(ctx, factor);
+	}
 }
 
 function update() {
 	map.iterateOverMap(map.updateTile);
-	player.update()
+
+	for (let pulpoIndx in pulpitos) {
+		if (pulpitos[pulpoIndx].lives > 0) {
+			if (pulpitos[pulpoIndx].controlledByHuman) {
+				pulpitos[pulpoIndx].update();
+			} else {
+				think(pulpitos, pulpoIndx);
+			}
+		}
+	}
 }
 
 function drawPauseScreen(factor) {
@@ -88,41 +100,46 @@ document.addEventListener("DOMContentLoaded", () => {
 			pause = !pause
 		}
 		if (event.key.toLowerCase() === "w") {
-			player.setUpDirection(true);
+			pulpitos[0].setUpDirection(true);
 		}
 		if (event.key.toLowerCase() === "s") {
-			player.setDownDirection(true);
+			pulpitos[0].setDownDirection(true);
 		}
 		if (event.key.toLowerCase() === "a") {
-			player.setLeftDirection(true);
+			pulpitos[0].setLeftDirection(true);
 		}
 		if (event.key.toLowerCase() === "d") {
-			player.setRightDirection(true);
+			pulpitos[0].setRightDirection(true);
 		}
 		if (event.key === " ") {
-			player.placeBomb();
+			pulpitos[0].placeBomb();
 		}
 	})
 
 	gameDiv.addEventListener("keyup", (event) => {
 		if (event.key.toLowerCase() === "w") {
-			player.setUpDirection(false);
+			pulpitos[0].setUpDirection(false);
 		}
 		if (event.key.toLowerCase() === "s") {
-			player.setDownDirection(false);
+			pulpitos[0].setDownDirection(false);
 		}
 		if (event.key.toLowerCase() === "a") {
-			player.setLeftDirection(false);
+			pulpitos[0].setLeftDirection(false);
 		}
 		if (event.key.toLowerCase() === "d") {
-			player.setRightDirection(false);
+			pulpitos[0].setRightDirection(false);
 		}
 	})
 
 
-
 	map.iterateOverMap(map.initialise)
-	player = new Pulpito(16,16,1,1,null)
+	setMaxDistance();
+	
+	pulpitos.push(new Pulpito(TILESIZE, TILESIZE, true));
+	pulpitos.push(new Pulpito((map[0].length-2) *TILESIZE, TILESIZE, false));
+	pulpitos.push(new Pulpito((map[0].length-2) *TILESIZE, (map.length-2) * TILESIZE, false));
+	pulpitos.push(new Pulpito(TILESIZE, (map.length-2) * TILESIZE, false));
+
 	then = Date.now()
 	gameCycle()
 })
