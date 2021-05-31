@@ -34,6 +34,142 @@ class Pulpito extends Entidad {
 		this.maxBombsInBag = maxBombsInBag;
 		this.powerUp = powerUp;
 		this.powerUpTimer = 0;
+		this.direction = [false, false, false, false] // Indica si se mueve hacia arriba, abajo, izquierda y derecha
+	}
+
+	setUpDirection(n) {
+		this.direction[0] = n;
+	}
+	setDownDirection(n) {
+		this.direction[1] = n;
+	}
+	setLeftDirection(n) {
+		this.direction[2] = n;
+	}
+	setRightDirection(n) {
+		this.direction[3] = n;
+	}
+
+	avoidOverlaps() {
+		let mainTile = [Math.max(0, Math.trunc(this.xPos/TILESIZE)), Math.max(Math.trunc(this.yPos/TILESIZE))]
+		let tiles = [mainTile];
+		tiles.push([mainTile[0] + 1, mainTile[1]]);
+		tiles.push([mainTile[0], mainTile[1] + 1]);
+		tiles.push([mainTile[0] + 1, mainTile[1] + 1]);
+
+		for (let tileIndex in tiles) {
+
+			let tileContent = map.getTileContent(tiles[tileIndex][0], tiles[tileIndex][1]);
+			if (tileContent instanceof Pilar && this.collides(tileContent)) {
+				if (tileIndex == 0) {
+					if (this.direction[0]) {
+						this.yPos++;
+						if (this.collides(tileContent)) {
+							this.yPos--;
+						}
+						if (this.xPos > tileContent.xPos + (TILESIZE / 2)) {
+							this.xPos++;
+						}
+					}
+					if (this.direction[2]) {
+						this.xPos++;
+						if (this.collides(tileContent)) {
+							this.xPos--;
+						}
+						if (this.yPos > tileContent.yPos + (TILESIZE / 2)) {
+							this.yPos++;
+						}
+					}
+				}
+				if (tileIndex == 1) {
+					if (this.direction[0]) {
+						this.yPos++;
+						if (this.collides(tileContent)) {
+							this.yPos--;
+						}
+						if (this.xPos + TILESIZE < tileContent.xPos + (TILESIZE / 2)) {
+							this.xPos--;
+						}
+					}
+					if (this.direction[3]) {
+						this.xPos--;
+						if (this.collides(tileContent)) {
+							this.xPos++;
+						}
+						if (this.yPos > tileContent.yPos + (TILESIZE / 2)) {
+							this.yPos++;
+						}
+					}
+				}
+				if (tileIndex == 2) {
+					if (this.direction[1]) {
+						this.yPos--;
+						if (this.collides(tileContent)) {
+							this.yPos++;
+						}
+						if (this.xPos > tileContent.xPos + (TILESIZE / 2)) {
+							this.xPos++;
+						}
+					}
+					if (this.direction[2]) {
+						this.xPos++;
+						if (this.collides(tileContent)) {
+							this.xPos--;
+						}
+						if (this.yPos + (TILESIZE / 2) < tileContent.yPos) {
+							this.yPos--;
+						}
+					}
+				}
+				if (tileIndex == 3) {
+					if (this.direction[1]) {
+						this.yPos--;
+						if (this.collides(tileContent)) {
+							this.yPos++;
+						}
+						if (this.xPos + (TILESIZE / 2) < tileContent.xPos) {
+							this.xPos--;
+						}
+					}
+					if (this.direction[3]) {
+						this.xPos--;
+						if (this.collides(tileContent)) {
+							this.xPos++;
+						}
+						if (this.yPos + (TILESIZE / 2) < tileContent.yPos) {
+							this.yPos--;
+						}
+					}
+				}
+
+			}
+		}
+	}
+
+	collides(tile) {
+		if (this.xPos < tile.xPos + TILESIZE && 
+			this.xPos + TILESIZE > tile.xPos &&
+			this.yPos < tile.yPos + TILESIZE &&
+			this.yPos + TILESIZE > tile.yPos) {
+				return true;
+			}
+		return false;
+	}
+
+	move() {
+
+		if (this.direction[0] && !this.direction[1]) {
+			this.yPos--;
+		} else if (!this.direction[0] && this.direction[1]) {
+			this.yPos++;
+		}
+
+		if (this.direction[2] && !this.direction[3]) {
+			this.xPos--;
+		} else if (!this.direction[2] && this.direction[3]) {
+			this.xPos++;
+		}
+		this.avoidOverlaps()
 	}
 }
 
@@ -86,18 +222,22 @@ let map = Array.from(Array((VIRTUALHEIGHT / TILESIZE) -1), () =>
 
 map.initialise = function(x, y) {
 	if ((y == 0 || y == map.length-1) || (x == 0 || x == map[y].length-1)) {
-		map.setContentOfTile(x, y, new Pilar(x, y))
+		map.setTileContent(x, y, new Pilar(x, y))
 	} else if (y % 2 == 0 && x % 2 == 0) {
-		map.setContentOfTile(x, y, new Pilar(x, y))
+		map.setTileContent(x, y, new Pilar(x, y))
 	} else if (Math.random() > 0.5) {
-		map.setContentOfTile(x, y, new Caja(x, y))
+		map.setTileContent(x, y, new Caja(x, y))
 	}
 }
 
-map.setContentOfTile = function(x, y, object) {
-	if (object instanceof Entidad) {
+map.setTileContent = function(x, y, object) {
+	if (object instanceof Bloque) {
 		map[y][x] = object;
 	}
+}
+
+map.getTileContent = function(x, y) {
+	return map[y][x];
 }
 
 map.drawElements = function(ctx, factor) {
