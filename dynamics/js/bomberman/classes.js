@@ -14,6 +14,7 @@ class Entidad {
 		this.yPos = yPos;
 		this.creationTime = Date.now();
 		this.lastAnimationTime = this.creationTime;
+
 	}
 
 	draw(ctx, scalingFactor) {
@@ -26,20 +27,25 @@ class Entidad {
 }
 
 class Pulpito extends Entidad {
-	constructor(xPos, yPos, lives, maxBombsInBag, powerUp) {
-		super(null, xPos, yPos)
+	constructor(xPos, yPos, controlledByHuman) {
+		super(null, xPos, yPos, controlledByHuman)
+		this.controlledByHuman = controlledByHuman;
 
 		let spriteSheet = new Image();
 		spriteSheet.src = "../statics/img/bomberman/sprites/pulpito_sprite_sheet_lq.png";
 		this.spriteSheet = spriteSheet
-		this.lives = lives;
+		this.lives = 1;
 		this.score = 0;
-		this.maxBombsInBag = maxBombsInBag;
-		this.powerUp = powerUp;
+		this.maxBombsInBag = 1;
+		this.powerUp = null;
 		this.powerUpTimer = 0;
 		this.direction = [false, false, false, false] // Indica si se mueve hacia arriba, abajo, izquierda y derecha
 		this.insideBomb = false;
 		this.bombExplosionSize = 1;
+	}
+
+	animate() {
+		return
 	}
 
 	setUpDirection(n) {
@@ -82,8 +88,10 @@ class Pulpito extends Entidad {
 	}
 
 	update() {
-		if (this.lives > 0) {
-			this.move()
+		this.move()
+
+		if (!this.checkIfInsideBomb()) {
+			this.insideBomb = false;
 		}
 	}
 
@@ -194,9 +202,6 @@ class Pulpito extends Entidad {
 				this.xPos--;
 			}
 		}
-		if (!this.checkIfInsideBomb()) {
-			this.insideBomb = false;
-		}
 	}
 
 	placeBomb() {
@@ -263,18 +268,22 @@ class Bomba extends Bloque {
 			let y = Math.trunc(this.yPos/TILESIZE);
 			let dx = Math.round(Math.cos(i));
 			let dy = Math.round(Math.sin(i));
-			for (let j = 0; j <= this.explosionSize; j++) {	
+			let limite = false;
+			for (let j = 0; j <= this.explosionSize && !limite; j++) {	
 				tile = map.getTileContent(x, y);
 				if (!(tile instanceof Pilar)) {
 					if (tile instanceof Bomba && j != 0) {
 						tile.explode();
 					} else {
+						if (tile instanceof Caja) {
+							limite = true;
+						}
 						map.setTileContent(x, y, new Explosion(x,y))
 					}
 					x += dx;
 					y += dy;
 				} else {
-					break;
+					limite = true;
 				}
 			}
 		}
