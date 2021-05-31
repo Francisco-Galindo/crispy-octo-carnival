@@ -4,15 +4,107 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../lib/bootstrap-5.0.1-dist/css/bootstrap.min.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="./lib/bootstrap-5.0.1-dist/css/bootstrap.css">
+    <link href="./statics/styles/inicio.css" rel="stylesheet" />
+    <title>OCTO-BOOM</title>
+    <style>
+        p{
+            text-align: center;
+            color: #9DFFDC;
+        }
+        #juegos > a > img:hover{
+            width: 270px;
+            height: 270px;
+        }
+        #division{
+            width: auto;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+        }
+        #espacio{
+            width: 1500px;
+        }
+        #espacio > img:nth-child(2){
+            animation: mymove2 3s linear infinite;
+        }
+        #espacio > img:nth-child(1){
+            animation: mymove1 3s linear infinite;
+        }
+        #espacio > img:nth-child(4){
+            animation: mymove3 3s linear infinite;
+        }
+        @keyframes mymove2{
+            0%   { transform: translate(0px, 0%);}
+            10%  { transform: translate(100px, 60%);  }
+            30%  { transform: translate(200px, 0%); }
+            50%  { transform: translate(400px, 60%); }
+            60%  { transform: translate(600px, 0%); }
+            65%  { transform: translate(800px, 60%);  }
+            100% { transform: translate(1000px, 0%); }
+        }
+        @keyframes mymove1{
+            0%   { transform: translate(0px, 0%);}
+            50%  { transform: translate(400px, 50%); }
+            100% { transform: translate(1000px, 100%); }
+        }
+        @keyframes mymove3{
+            0%   { transform: translate(1000px, 60%);}
+            50%  { transform: translate(400px, 30%); }
+            100% { transform: translate(0px, 0%); }
+        }
+    </style>
 </head>
 <body>
-    <h1>OCTO-BOOM</h1>
-    <div></div>
-    <div></div>
-
-    <script src="../lib/bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="./lib/fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet" type="text/css" />
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#885FBD;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="./statics/img/octo..jpg" alt="Logo" width="160" height="100">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="./index.html"><h2><i class="fas fa-home"></i>  Pagina Principal</h2></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="./templates/personalizacion.html"><h2><i class="fas fa-pen-nib"></i> Personalización</h2></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="./templates/puntajes.html"><h2><i class="fas fa-gamepad"></i> Puntajes</h2></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="./templates/creditos.html"><h2><i class="fas fa-users"></i> Creditos </h2></a>
+          </li>
+      </div>
+        </div>
+    </nav>
+    <h1><img src="./statics/img/octoboom.png" alt="Logo" width="200" height="200"> OCTO-BOOM</h1>
+    <div id="division">
+        <div id="espacio">
+            <img src="./statics/img/Animación1.png" alt="Logo" width="150" height="140">
+            <img src="./statics/img/bombita salta.png" alt="Logo" width="350" height="400">
+            <br>
+            <img src="./statics/img/Animación1.png" alt="Logo" width="150" height="140">
+        </div>
+        <div id="juegos">
+            <a href="./templates/buscaminas.html">
+                <img src="./statics/img/buscaminas.jpg" alt="Logo" width="250" height="250">
+                <br>
+                <p>BUSCAMINAS</p>
+            </a>
+            <br>
+            <a href="./templates/bomberman.html">
+                <img src="./statics/img/boomberman.png" alt="Logo" width="250" height="250">
+                <br>
+                <p>BOOMBERMAN</p>
+            </a>
+        </div>
+    </div>
+    <script src="./lib/bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
