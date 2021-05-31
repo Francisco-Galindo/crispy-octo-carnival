@@ -83,8 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	gameDiv.addEventListener("keydown", (event) => {
 
+
 		if (event.key === "Escape") {
-			console.log("wtf")
 			pause = !pause
 		}
 		if (event.key.toLowerCase() === "w") {
@@ -98,6 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 		if (event.key.toLowerCase() === "d") {
 			player.setRightDirection(true);
+		}
+		if (event.key === " ") {
+			player.placeBomb();
 		}
 	})
 

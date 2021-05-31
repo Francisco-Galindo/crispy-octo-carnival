@@ -35,6 +35,7 @@ class Pulpito extends Entidad {
 		this.powerUp = powerUp;
 		this.powerUpTimer = 0;
 		this.direction = [false, false, false, false] // Indica si se mueve hacia arriba, abajo, izquierda y derecha
+		this.insideBomb = false;
 	}
 
 	setUpDirection(n) {
@@ -50,126 +51,171 @@ class Pulpito extends Entidad {
 		this.direction[3] = n;
 	}
 
-	avoidOverlaps() {
-		let mainTile = [Math.max(0, Math.trunc(this.xPos/TILESIZE)), Math.max(Math.trunc(this.yPos/TILESIZE))]
-		let tiles = [mainTile];
-		tiles.push([mainTile[0] + 1, mainTile[1]]);
-		tiles.push([mainTile[0], mainTile[1] + 1]);
-		tiles.push([mainTile[0] + 1, mainTile[1] + 1]);
-
-		for (let tileIndex in tiles) {
-
-			let tileContent = map.getTileContent(tiles[tileIndex][0], tiles[tileIndex][1]);
-			if (tileContent instanceof Pilar && this.collides(tileContent)) {
-				if (tileIndex == 0) {
-					if (this.direction[0]) {
-						this.yPos++;
-						if (this.collides(tileContent)) {
-							this.yPos--;
-						}
-						if (this.xPos > tileContent.xPos + (TILESIZE / 2)) {
-							this.xPos++;
-						}
-					}
-					if (this.direction[2]) {
-						this.xPos++;
-						if (this.collides(tileContent)) {
-							this.xPos--;
-						}
-						if (this.yPos > tileContent.yPos + (TILESIZE / 2)) {
-							this.yPos++;
-						}
-					}
-				}
-				if (tileIndex == 1) {
-					if (this.direction[0]) {
-						this.yPos++;
-						if (this.collides(tileContent)) {
-							this.yPos--;
-						}
-						if (this.xPos + TILESIZE < tileContent.xPos + (TILESIZE / 2)) {
-							this.xPos--;
-						}
-					}
-					if (this.direction[3]) {
-						this.xPos--;
-						if (this.collides(tileContent)) {
-							this.xPos++;
-						}
-						if (this.yPos > tileContent.yPos + (TILESIZE / 2)) {
-							this.yPos++;
-						}
-					}
-				}
-				if (tileIndex == 2) {
-					if (this.direction[1]) {
-						this.yPos--;
-						if (this.collides(tileContent)) {
-							this.yPos++;
-						}
-						if (this.xPos > tileContent.xPos + (TILESIZE / 2)) {
-							this.xPos++;
-						}
-					}
-					if (this.direction[2]) {
-						this.xPos++;
-						if (this.collides(tileContent)) {
-							this.xPos--;
-						}
-						if (this.yPos + (TILESIZE / 2) < tileContent.yPos) {
-							this.yPos--;
-						}
-					}
-				}
-				if (tileIndex == 3) {
-					if (this.direction[1]) {
-						this.yPos--;
-						if (this.collides(tileContent)) {
-							this.yPos++;
-						}
-						if (this.xPos + (TILESIZE / 2) < tileContent.xPos) {
-							this.xPos--;
-						}
-					}
-					if (this.direction[3]) {
-						this.xPos--;
-						if (this.collides(tileContent)) {
-							this.xPos++;
-						}
-						if (this.yPos + (TILESIZE / 2) < tileContent.yPos) {
-							this.yPos--;
-						}
-					}
-				}
-
-			}
-		}
-	}
-
-	collides(tile) {
-		if (this.xPos < tile.xPos + TILESIZE && 
-			this.xPos + TILESIZE > tile.xPos &&
+	collides(tile,) {
+		if (tile !== null &&
+			this.xPos < tile.xPos + TILESIZE && 
+			this.xPos + TILESIZE - 1 > tile.xPos &&
 			this.yPos < tile.yPos + TILESIZE &&
-			this.yPos + TILESIZE > tile.yPos) {
+			this.yPos + TILESIZE - 1 > tile.yPos) {
 				return true;
 			}
 		return false;
 	}
 
+	checkIfInsideBomb() {
+		let x = Math.trunc(this.xPos/TILESIZE);
+		let y = Math.trunc(this.yPos/TILESIZE);
+
+		for (let i = x-1; i <= x+1; i++) {
+			for (let j = y-1; j <= y+1; j++) {
+				let tile = map.getTileContent(i, j);
+				if (this.collides(tile) && tile instanceof Bomba) {
+					return true;
+				}
+			}	
+		}
+		return false;
+	}
+
 	move() {
 
+		let tiles = [];
+		let tilesCollide = [];
 		if (this.direction[0] && !this.direction[1]) {
 			this.yPos--;
+
+			tiles[0] = map.getTileContent(Math.trunc(this.xPos/TILESIZE), 
+				Math.trunc(this.yPos/TILESIZE));
+			tiles[1] = map.getTileContent(Math.trunc((this.xPos + TILESIZE)/TILESIZE), 
+				Math.trunc(this.yPos/TILESIZE));
+
+			tilesCollide[0] = this.collides(tiles[0]);
+			tilesCollide[1] = this.collides(tiles[1]);
+
+			if (tiles[0] instanceof Bomba && this.insideBomb == true) {
+				tilesCollide[0] = false;
+			}
+			if (tiles[1] instanceof Bomba && this.insideBomb == true) {
+				tilesCollide[1] = false;
+			}
+
+			if (tilesCollide[0] || tilesCollide[1]) {
+
+				this.yPos++;
+				// if (tilesCollide[0] && this.xPos > tiles[0].xPos + (TILESIZE / 2)) {
+				// 	this.xPos++;
+				// }
+				// if (tilesCollide[1] && this.xPos + TILESIZE < tiles[1].xPos + (TILESIZE / 2)) {
+				// 	this.xPos--;
+				// }
+			}
 		} else if (!this.direction[0] && this.direction[1]) {
 			this.yPos++;
+
+			tiles[0] = map.getTileContent(Math.trunc(this.xPos/TILESIZE), 
+				Math.trunc((this.yPos + TILESIZE)/TILESIZE));
+			tiles[1] = map.getTileContent(Math.trunc((this.xPos + TILESIZE)/TILESIZE), 
+				Math.trunc((this.yPos + TILESIZE)/TILESIZE));
+
+			tilesCollide[0] = this.collides(tiles[0]);
+			tilesCollide[1] = this.collides(tiles[1]);
+
+			if (tiles[0] instanceof Bomba && this.insideBomb == true) {
+				tilesCollide[0] = false;
+			}
+			if (tiles[1] instanceof Bomba && this.insideBomb == true) {
+				tilesCollide[1] = false;
+			}
+
+
+			if (tilesCollide[0] || tilesCollide[1]) {
+					
+				this.yPos--;
+				// if (tilesCollide[0] && this.xPos > tiles[0].xPos + (TILESIZE / 2)) {
+				// 	this.xPos++;
+				// }
+				// if (tilesCollide[1] && this.xPos + TILESIZE < tiles[1].xPos + (TILESIZE / 2)) {
+				// 	this.xPos--;
+				// }
+			}
 		}
 
 		if (this.direction[2] && !this.direction[3]) {
 			this.xPos--;
+
+			tiles[0] = map.getTileContent(Math.trunc(this.xPos/TILESIZE), 
+			Math.trunc(this.yPos/TILESIZE));
+			tiles[1] = map.getTileContent(Math.trunc((this.xPos)/TILESIZE), 
+			Math.trunc((this.yPos/TILESIZE) + 1));
+
+			tilesCollide[0] = this.collides(tiles[0]);
+			tilesCollide[1] = this.collides(tiles[1]);
+
+			if (tiles[0] instanceof Bomba && this.insideBomb == true) {
+				tilesCollide[0] = false;
+			}
+			if (tiles[1] instanceof Bomba && this.insideBomb == true) {
+				tilesCollide[1] = false;
+			}
+
+
+			if (tilesCollide[0] || tilesCollide[1]) {
+
+				this.xPos++;
+				// if (tilesCollide[0] && this.yPos > tiles[0].xPos + (TILESIZE / 2)) {
+				// 	this.yPos++;
+				// }
+				// if (tilesCollide[1] && this.yPos + TILESIZE < tiles[1].yPos + (TILESIZE / 2)) {
+				// 	this.yPos--;
+				// }
+			}
+
 		} else if (!this.direction[2] && this.direction[3]) {
 			this.xPos++;
+
+			tiles[0] = map.getTileContent(Math.trunc((this.xPos + TILESIZE)/TILESIZE), 
+				Math.trunc(this.yPos/TILESIZE));
+			tiles[1] = map.getTileContent(Math.trunc((this.xPos + TILESIZE)/TILESIZE), 
+				Math.trunc((this.yPos/TILESIZE) + 1));
+
+			tilesCollide[0] = this.collides(tiles[0]);
+			tilesCollide[1] = this.collides(tiles[1]);
+
+			if (tiles[0] instanceof Bomba && this.insideBomb == true) {
+				tilesCollide[0] = false;
+			}
+			if (tiles[1] instanceof Bomba && this.insideBomb == true) {
+				tilesCollide[1] = false;
+			}
+
+
+			if (tilesCollide[0] || tilesCollide[1]) {
+
+				this.xPos--;
+				// if (tilesCollide[0] && this.yPos > tiles[0].xPos + (TILESIZE / 2)) {
+				// 	this.yPos++;
+				// }
+				// if (tilesCollide[1] && this.yPos + TILESIZE < tiles[1].yPos + (TILESIZE / 2)) {
+				// 	this.yPos--;
+				// }
+			}
 		}
-		this.avoidOverlaps()
+		if (!this.checkIfInsideBomb()) {
+			this.insideBomb = false;
+		}
+	}
+
+	placeBomb() {
+		let x = Math.trunc(this.xPos/TILESIZE);
+		if (this.xPos % TILESIZE > TILESIZE/2) {
+			x++;
+		}
+		let y = Math.trunc(this.yPos/TILESIZE);
+		if (this.yPos % TILESIZE > TILESIZE/2) {
+			y++;
+		}
+		map.setTileContent(x, y, new Bomba(x,y))
+		this.insideBomb = true;
 	}
 }
 
@@ -201,7 +247,7 @@ class Bomba extends Bloque {
 	constructor(x, y) {
 		super(x, y);
 		let spriteSheet = new Image();
-		spriteSheet.src = "../statics/img/bomberman/sprites/bomb.png";
+		spriteSheet.src = "../statics/img/bomberman/sprites/bomb_spritesheet.png";
 		this.spriteSheet = spriteSheet;
 	}
 }
@@ -225,7 +271,7 @@ map.initialise = function(x, y) {
 		map.setTileContent(x, y, new Pilar(x, y))
 	} else if (y % 2 == 0 && x % 2 == 0) {
 		map.setTileContent(x, y, new Pilar(x, y))
-	} else if (Math.random() > 0.5) {
+	} else if (!((y <= 3 || y>= map.length-4 ) && (x <= 3 || x >= map[y].length-4 )) && Math.random() > 0.5) {
 		map.setTileContent(x, y, new Caja(x, y))
 	}
 }
