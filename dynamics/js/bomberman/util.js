@@ -2,7 +2,8 @@ const VIRTUALHEIGHT = 224;
 const VIRTUALWIDTH = 256;
 const TILESIZE = 16;
 const SPRITESIZE = 16;
-
+const FRAMERATE = 60;
+const FRAMETIME = 1000 / FRAMERATE;
 
 
 class Entidad {
@@ -11,6 +12,8 @@ class Entidad {
 		this.spritePos =  [0,0]
 		this.xPos = xPos;
 		this.yPos = yPos;
+		this.creationTime = Date.now();
+		this.lastAnimationTime = this.creationTime;
 	}
 
 	draw(ctx, scalingFactor) {
@@ -36,6 +39,7 @@ class Pulpito extends Entidad {
 		this.powerUpTimer = 0;
 		this.direction = [false, false, false, false] // Indica si se mueve hacia arriba, abajo, izquierda y derecha
 		this.insideBomb = false;
+		this.bombExplosionSize = 1;
 	}
 
 	setUpDirection(n) {
@@ -51,7 +55,7 @@ class Pulpito extends Entidad {
 		this.direction[3] = n;
 	}
 
-	collides(tile,) {
+	collides(tile) {
 		if (tile !== null &&
 			this.xPos < tile.xPos + TILESIZE && 
 			this.xPos + TILESIZE - 1 > tile.xPos &&
@@ -77,6 +81,12 @@ class Pulpito extends Entidad {
 		return false;
 	}
 
+	update() {
+		if (this.lives > 0) {
+			this.move()
+		}
+	}
+
 	move() {
 
 		let tiles = [];
@@ -100,14 +110,10 @@ class Pulpito extends Entidad {
 			}
 
 			if (tilesCollide[0] || tilesCollide[1]) {
-
+				if (tiles[0] instanceof Explosion || tiles[1] instanceof Explosion) {
+					this.lives--;
+				}
 				this.yPos++;
-				// if (tilesCollide[0] && this.xPos > tiles[0].xPos + (TILESIZE / 2)) {
-				// 	this.xPos++;
-				// }
-				// if (tilesCollide[1] && this.xPos + TILESIZE < tiles[1].xPos + (TILESIZE / 2)) {
-				// 	this.xPos--;
-				// }
 			}
 		} else if (!this.direction[0] && this.direction[1]) {
 			this.yPos++;
@@ -129,14 +135,10 @@ class Pulpito extends Entidad {
 
 
 			if (tilesCollide[0] || tilesCollide[1]) {
-					
+				if (tiles[0] instanceof Explosion || tiles[1] instanceof Explosion) {
+					this.lives--;
+				}			
 				this.yPos--;
-				// if (tilesCollide[0] && this.xPos > tiles[0].xPos + (TILESIZE / 2)) {
-				// 	this.xPos++;
-				// }
-				// if (tilesCollide[1] && this.xPos + TILESIZE < tiles[1].xPos + (TILESIZE / 2)) {
-				// 	this.xPos--;
-				// }
 			}
 		}
 
@@ -160,14 +162,10 @@ class Pulpito extends Entidad {
 
 
 			if (tilesCollide[0] || tilesCollide[1]) {
-
+				if (tiles[0] instanceof Explosion || tiles[1] instanceof Explosion) {
+					this.lives--;
+				}
 				this.xPos++;
-				// if (tilesCollide[0] && this.yPos > tiles[0].xPos + (TILESIZE / 2)) {
-				// 	this.yPos++;
-				// }
-				// if (tilesCollide[1] && this.yPos + TILESIZE < tiles[1].yPos + (TILESIZE / 2)) {
-				// 	this.yPos--;
-				// }
 			}
 
 		} else if (!this.direction[2] && this.direction[3]) {
@@ -190,14 +188,10 @@ class Pulpito extends Entidad {
 
 
 			if (tilesCollide[0] || tilesCollide[1]) {
-
+				if (tiles[0] instanceof Explosion || tiles[1] instanceof Explosion) {
+					this.lives--;
+				}
 				this.xPos--;
-				// if (tilesCollide[0] && this.yPos > tiles[0].xPos + (TILESIZE / 2)) {
-				// 	this.yPos++;
-				// }
-				// if (tilesCollide[1] && this.yPos + TILESIZE < tiles[1].yPos + (TILESIZE / 2)) {
-				// 	this.yPos--;
-				// }
 			}
 		}
 		if (!this.checkIfInsideBomb()) {
@@ -214,7 +208,7 @@ class Pulpito extends Entidad {
 		if (this.yPos % TILESIZE > TILESIZE/2) {
 			y++;
 		}
-		map.setTileContent(x, y, new Bomba(x,y))
+		map.setTileContent(x, y, new Bomba(x, y, this.bombExplosionSize))
 		this.insideBomb = true;
 	}
 }
@@ -244,11 +238,55 @@ class Caja extends Bloque {
 }
 
 class Bomba extends Bloque {
-	constructor(x, y) {
+	constructor(x, y, explosionSize) {
 		super(x, y);
+		this.explosionSize = explosionSize;
 		let spriteSheet = new Image();
 		spriteSheet.src = "../statics/img/bomberman/sprites/bomb_spritesheet.png";
 		this.spriteSheet = spriteSheet;
+		this.explisionTime = 3000;
+
+	}
+
+	animate(now) {
+		if (now - this.lastAnimationTime > 500) {
+			this.spritePos[0]++;
+			this.lastAnimationTime = now;
+		}
+	}
+
+	explode() {
+
+		// Para nada necesita ser así de complicado, pero se ve chido xd
+		for (let i = 0; i < Math.PI * 2; i += (Math.PI/2)) {
+			let x = Math.trunc(this.xPos/TILESIZE);
+			let y = Math.trunc(this.yPos/TILESIZE);
+			let dx = Math.round(Math.cos(i));
+			let dy = Math.round(Math.sin(i));
+			for (let j = 0; j <= this.explosionSize; j++) {	
+				tile = map.getTileContent(x, y);
+				if (!(tile instanceof Pilar)) {
+					if (tile instanceof Bomba && j != 0) {
+						tile.explode();
+					} else {
+						map.setTileContent(x, y, new Explosion(x,y))
+					}
+					x += dx;
+					y += dy;
+				} else {
+					break;
+				}
+			}
+		}
+	}
+
+	update() {
+		let now = Date.now();
+		this.animate(now);
+		if (now - this.creationTime > this.explisionTime) {
+			
+			this.explode();
+		}
 	}
 }
 
@@ -256,8 +294,33 @@ class Explosion extends Bloque {
 	constructor(x, y) {
 		super(x, y);
 		let spriteSheet = new Image();
-		spriteSheet.src = "../statics/img/bomberman/sprites/crate.png";
+		spriteSheet.src = "../statics/img/bomberman/sprites/explosion.png";
 		this.spriteSheet = spriteSheet;
+	}
+
+	animate(forwards, now) {
+		if (forwards && now - this.lastAnimationTime > FRAMETIME && this.spritePos[0] < 3) {
+			this.spritePos[0]++;
+			this.lastAnimationTime = now;
+		} else if (!forwards) {
+			if (this.spritePos[0] > 0) {
+				this.spritePos[0]--;
+				this.lastAnimationTime = now;
+			} else {
+				let x = Math.trunc(this.xPos/TILESIZE);
+				let y = Math.trunc(this.yPos/TILESIZE);
+				map.setTileContent(x, y, null);
+			}
+
+			
+		}
+	}
+	update() {
+		let now = Date.now()
+		this.animate(true, now);
+		if (now - this.creationTime > 1000) {
+			this.animate(false, now)
+		}
 	}
 }
 
@@ -277,7 +340,7 @@ map.initialise = function(x, y) {
 }
 
 map.setTileContent = function(x, y, object) {
-	if (object instanceof Bloque) {
+	if (object instanceof Bloque || object === null) {
 		map[y][x] = object;
 	}
 }
@@ -285,6 +348,13 @@ map.setTileContent = function(x, y, object) {
 map.getTileContent = function(x, y) {
 	return map[y][x];
 }
+
+map.updateTile = function(x, y) {
+	tile = map.getTileContent(x, y);
+	if (tile instanceof Bomba || tile instanceof Explosion)	{
+		tile.update();
+	}
+} 
 
 map.drawElements = function(ctx, factor) {
 	for (y in map) {

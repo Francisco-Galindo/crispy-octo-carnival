@@ -2,17 +2,16 @@ let gameDiv;
 let canvas;
 let ctx;
 let gameFocused;
+
 let pause = true;
-let img = new Image();
 let player;
 let startTime;
 let frameCount = 0;
-let frameTime = 1000 / 60;
-let then
+let then;
 
 /* Se modifica el tamaño del canvas para que sea el mismo que su
 div padre */
-function escalarCanvas() {
+function scaleCanvas() {
 	canvas.height = gameDiv.clientHeight;
 	canvas.width = gameDiv.clientWidth;
 }
@@ -24,7 +23,8 @@ function draw(factor) {
 }
 
 function update() {
-	player.move()
+	map.iterateOverMap(map.updateTile);
+	player.update()
 }
 
 function drawPauseScreen(factor) {
@@ -45,10 +45,10 @@ function gameCycle() {
 	let now = Date.now()
 	let elapsed = now - then;
 
-	if (elapsed > frameTime) {
+	if (elapsed > FRAMETIME) {
 		frameCount++;
-		then = now - (elapsed % frameTime);
-		escalarCanvas();
+		then = now - (elapsed % FRAMETIME);
+		scaleCanvas();
 		let factor = canvas.height / VIRTUALHEIGHT;
 
 		if (!pause) {
