@@ -152,10 +152,8 @@ window.addEventListener("load", () => {
 				var objDiv = document.getElementById(myid)
 				if (objDiv.textContent == "") {
 					if (tablero[i][j] == 0) {
-						if (i == cori && j == corj) {
-							objDiv.textContent = "";
-							objDiv.style.backgroundColor = "#bfc3d6";
-						}
+						objDiv.textContent = "";
+						objDiv.style.backgroundColor = "#bfc3d6";
 					} else {
 						if (tablero[i][j] != "*") {
 							document.getElementById(myid).innerHTML = "<p style='margin-top:15px;'>" + tablero[i][j] + "</p>";
@@ -204,7 +202,7 @@ window.addEventListener("load", () => {
 				var myid = i + "" + j;
 				var objDiv = document.getElementById(myid);
 				if (tablero[i][j] == "*") {
-					objDiv.style.background = "#f3f3f3 url('img/bomba.jpg') no-repeat right top";
+					objDiv.style.background = "#f3f3f3 url('../statics/img/bomba.jpg') no-repeat right top";
 				}
 			}
 		}

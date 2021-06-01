@@ -95,6 +95,16 @@ body {
 
 @media screen and (max-width:800px) {
 
+    h1 {
+        color: #50FFE1;
+        font-size: 5.5rem;
+        text-align: center;
+    }
+
+    h1>img {
+        display: none;
+    }
+
     #division {
         flex-direction: column;
     }

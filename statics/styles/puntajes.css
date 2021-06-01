@@ -1,5 +1,6 @@
 #espacio {
     flex-direction: row;
+    background-color:transparent;
 }
 
 #PBM,
@@ -15,12 +16,16 @@ body {
     background-image: url("../img/fondomorado.png");
 }
 
+h3 {
+    color: #010033;
+}
+
 @media screen and (max-width:800px) {
 
     #espacio {
-        width: 100%;
+        width: 90%;
         height: auto;
-        margin-left: 20px;
+        margin-left: 10px;
         display: flex;
         flex-direction: column;
     }
