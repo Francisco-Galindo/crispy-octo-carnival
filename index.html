@@ -5,140 +5,19 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./lib/bootstrap-5.0.1-dist/css/bootstrap.css">
-	<link href="./statics/styles/inicio.css" rel="stylesheet" />
 	<link rel="shortcut icon" href="./statics/img/octo.jpg">
+	<link rel="stylesheet" href="./lib/bootstrap-5.0.1-dist/css/bootstrap.css">
+	<link rel="stylesheet" href="./lib/fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="./statics/styles/inicio.css" />
 	<title>OCTO-BOOM</title>
-	<style>
-		p {
-			text-align: center;
-			color: #9DFFDC;
-		}
-
-		body {
-			background-image: url("./statics/img/fondomorado.png");
-		}
-
-		#juegos>a>img:hover {
-			width: 270px;
-			height: 270px;
-		}
-
-		#division {
-			width: auto;
-			height: auto;
-			display: flex;
-			flex-direction: row;
-		}
-
-		#espacio {
-			width: 1500px;
-		}
-
-		#espacio>img:nth-child(2) {
-			animation: mymove2 3s linear infinite;
-		}
-
-		#espacio>img:nth-child(1) {
-			animation: mymove1 3s linear infinite;
-		}
-
-		#espacio>img:nth-child(4) {
-			animation: mymove3 3s linear infinite;
-		}
-
-		@keyframes mymove2 {
-			0% {
-				transform: translate(0px, 0%);
-			}
-
-			10% {
-				transform: translate(100px, 60%);
-			}
-
-			30% {
-				transform: translate(200px, 0%);
-			}
-
-			50% {
-				transform: translate(400px, 60%);
-			}
-
-			60% {
-				transform: translate(600px, 0%);
-			}
-
-			65% {
-				transform: translate(800px, 60%);
-			}
-
-			100% {
-				transform: translate(1000px, 0%);
-			}
-		}
-
-		@keyframes mymove1 {
-			0% {
-				transform: translate(0px, 0%);
-			}
-
-			50% {
-				transform: translate(400px, 50%);
-			}
-
-			100% {
-				transform: translate(1000px, 100%);
-			}
-		}
-
-		@keyframes mymove3 {
-			0% {
-				transform: translate(1000px, 60%);
-			}
-
-			50% {
-				transform: translate(400px, 30%);
-			}
-
-			100% {
-				transform: translate(0px, 0%);
-			}
-		}
-
-		@media screen and (max-width:800px) {
-			h1 {
-				color: #50FFE1;
-				font-size: 5.5rem;
-				text-align: center;
-			}
-
-			h1>img {
-				display: none;
-			}
-
-			#division {
-				flex-direction: column;
-			}
-
-			#espacio {
-				width: auto;
-				height: 620px;
-			}
-
-			#juegos>a>img {
-				margin-left: 30%;
-			}
-
-		}
-	</style>
 </head>
 
 <body>
-	<link rel="stylesheet" href="./lib/fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet" type="text/css" />
+
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#885FBD;">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">
-				<img src="./statics/img/octo.jpg" alt="Logo" width="160" height="100">
+				<img src="./statics/img/octo.jpg" alt="Logo" width="80" height="50">
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -191,6 +70,7 @@
 			</a>
 		</div>
 	</div>
+
 	<script src="./lib/bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
