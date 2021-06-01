@@ -16,6 +16,7 @@ Para descargar el proyecto hay dos alternativas principales:
 ```Bash
 git clone https://github.com/Francisco-Galindo/crispy-octo-carnival.git
 ```
+
 - Dar click al botón verde con el texto "Code" y después a "Download Zip".
 
 ## Guía de configuración
