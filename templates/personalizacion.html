@@ -12,15 +12,41 @@
 	<link rel="stylesheet" href="../statics/styles/basics.css">
 	<title>OCTO-BOOM</title>
 	<style>
-
+		#black {
+			margin-top: 20px;
+			margin-left: 50px;
+		}
 		#espacio {
+			height: 580px;
 			flex-direction: row;
 		}
 
 		body {
 			background-image: url("../statics/img/fondomorado.png");
 		}
+		h3{
+			color:#010033;
+		}
 
+		@media screen and (max-width:800px) {
+			#espacio {
+				width: 93%;
+				height: auto;
+				margin-left: 20px;
+				flex-direction: column;
+			}
+			#usuario {
+				margin-left: 150px;
+			}
+			#black {
+				margin-top: 20px;
+				margin-left: 10px;
+				width: 550px;
+			}
+			#black:hover{
+				width: 500px;
+			}
+		}
 	</style>
 </head>
 
@@ -56,7 +82,7 @@
 	</nav>
 	<h1><img src="../statics/img/octoboom.png" alt="Logo" width="200" height="200"> Personalización</h1>
 	<div id="usuario">
-		<label> Usuario:
+		<label>Usuario:
 			<input type="text" holder="usuario" id="name">
 		</label>
 		<label> 
@@ -66,11 +92,11 @@
 
 	<div id="espacio">
 		<div>
-			<img id="black" src="../statics/img/fondomorado.png" alt="fondo morado" width="450" height="250">
+			<img id="black" src="../statics/img/fondomorado.png" alt="fondo morado" width="650" height="450">
 			<h3>Oscuro</h3>
 		</div>
 		<div>
-			<img id="black" src="../statics/img/fondoclaro.png" alt="fondo claro" width="450" height="250">
+			<img id="black" src="../statics/img/fondoclaro.png" alt="fondo claro" width="650" height="450">
 			<h3>Claro</h3>
 		</div>
 	</div>
