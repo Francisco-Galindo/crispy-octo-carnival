@@ -1,0 +1,38 @@
+#espacio {
+    flex-direction: row;
+}
+
+#PBM,
+#PB {
+    margin-top: 10px;
+    margin-left: 60px;
+    background-color: #72A1C9;
+    width: 650px;
+    height: 600px;
+}
+
+body {
+    background-image: url("../img/fondomorado.png");
+}
+
+@media screen and (max-width:800px) {
+
+    #espacio {
+        width: 100%;
+        height: auto;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #PBM,
+    #PB {
+        margin-top: 10px;
+        margin-bottom: 30px;
+        margin-left: 20px;
+        background-color: #72A1C9;
+        width: 600px;
+        height: 600px;
+    }
+
+}
