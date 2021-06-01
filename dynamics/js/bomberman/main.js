@@ -25,6 +25,7 @@ function draw(factor) {
 	}
 }
 
+// Actualiza el estado del juego
 function update() {
 	map.iterateOverMap(map.updateTile);
 
@@ -39,7 +40,7 @@ function update() {
 function drawPauseScreen(factor) {
 	ctx.beginPath();
 	ctx.globalAlpha = 0.3;
-	ctx.fillRect(0,0, canvas.width, canvas.height);
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	ctx.globalAlpha = 1.0;
 	ctx.font = "50px Consolas";
 	ctx.fillText(`Pausa`, 0, 20 * factor);
@@ -84,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	gameDiv.addEventListener("focus", () => {
 		gameFocused = true;
 	})
-
+	// Poniendo pausa al juego si no está en focus
 	gameDiv.addEventListener("blur", () => {
 		gameFocused = false;
 		pause = true;
@@ -172,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	setMaxDistance();
 
 	pulpitos.push(new Pulpito(TILESIZE, TILESIZE));
-	pulpitos.push(new Pulpito((map[0].length-2) *TILESIZE, (map.length-2) * TILESIZE));
+	pulpitos.push(new Pulpito((map[0].length - 2) * TILESIZE, (map.length - 2) * TILESIZE));
 
 	then = Date.now()
 	gameCycle()

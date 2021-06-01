@@ -1,8 +1,8 @@
 let maxDistance;
 
 function setMaxDistance() {
-    maxDistance = distanceBetweenEntities(map.getTileContent(0, 0), 
-    map.getTileContent(map[0].length-1, map.length-1))
+    maxDistance = distanceBetweenEntities(map.getTileContent(0, 0),
+        map.getTileContent(map[0].length - 1, map.length - 1))
 }
 
 
@@ -10,8 +10,8 @@ function distanceBetweenEntities(entity1, entity2) {
     if (entity1 instanceof Entidad && entity2 instanceof Entidad) {
         let disX = (entity1.xPos + (TILESIZE / 2)) - (entity2.xPos + (TILESIZE / 2));
         let disy = (entity1.yPos + (TILESIZE / 2)) - (entity2.yPos + (TILESIZE / 2));
-    
-        return Math.sqrt(disX**2 + disy**2);
+
+        return Math.sqrt(disX ** 2 + disy ** 2);
     }
     return null;
 }
@@ -35,21 +35,21 @@ function selectDirection(towards, from, to) {
 }
 
 function getNearbyTiles(pulpo) {
-    let x = Math.trunc(pulpo.xPos/TILESIZE);
-    if (pulpo.xPos % TILESIZE > TILESIZE/2) {
+    let x = Math.trunc(pulpo.xPos / TILESIZE);
+    if (pulpo.xPos % TILESIZE > TILESIZE / 2) {
         x++;
     }
-    let y = Math.trunc(pulpo.yPos/TILESIZE);
-    if (pulpo.yPos % TILESIZE > TILESIZE/2) {
+    let y = Math.trunc(pulpo.yPos / TILESIZE);
+    if (pulpo.yPos % TILESIZE > TILESIZE / 2) {
         y++;
     }
     let nearbyTiles = [];
-    for (let i = x-1; i <= x+1; i++) {
+    for (let i = x - 1; i <= x + 1; i++) {
         let row = []
-        for (let j = y-1; j <= y+1; j++) {
+        for (let j = y - 1; j <= y + 1; j++) {
             let tile = map.getTileContent(i, j);
             row.push(tile);
-        }	
+        }
         nearbyTiles.push(row);
     }
     return nearbyTiles;
@@ -58,9 +58,9 @@ function getNearbyTiles(pulpo) {
 function isPlacingBombSafe(nearbyTiles) {
     if ((nearbyTiles[0][0] === null && (nearbyTiles[0][1] === null || nearbyTiles[1][0] === null)) ||
         (nearbyTiles[0][2] === null && (nearbyTiles[0][1] === null || nearbyTiles[1][2] === null)) ||
-        (nearbyTiles[2][0] === null && (nearbyTiles[2][1] === null || nearbyTiles[1][0] === null)) ||(nearbyTiles[2][2] === null && (nearbyTiles[2][1] === null || nearbyTiles[1][2] === null))) {
-            return true;
-        }
+        (nearbyTiles[2][0] === null && (nearbyTiles[2][1] === null || nearbyTiles[1][0] === null)) || (nearbyTiles[2][2] === null && (nearbyTiles[2][1] === null || nearbyTiles[1][2] === null))) {
+        return true;
+    }
     return false;
 }
 
@@ -68,7 +68,7 @@ function getBombsInTiles(nearbyTiles) {
     let bombs = [];
     for (let i in nearbyTiles) {
         for (let j in nearbyTiles[i]) {
-            if  (nearbyTiles[i][j] instanceof Bomba) {
+            if (nearbyTiles[i][j] instanceof Bomba) {
                 bombs.push(nearbyTiles[i][j]);
             }
         }
@@ -94,17 +94,17 @@ function getSafeTile(nearbyTiles, bombs, nearestPulpo, x, y) {
                 if (nearbyTiles[i][j] !== null) {
                     safe = false;
                 }
-                if ((x-1+i) * TILESIZE == bomb.xPos || Math.abs((y-1+j) * TILESIZE - bomb.yPos) < TILESIZE) {
+                if ((x - 1 + i) * TILESIZE == bomb.xPos || Math.abs((y - 1 + j) * TILESIZE - bomb.yPos) < TILESIZE) {
                     safe = false;
                 }
-                if ((y-1+j) * TILESIZE == bomb.yPos || Math.abs((x-1+i) * TILESIZE - bomb.xPos) < TILESIZE) {
+                if ((y - 1 + j) * TILESIZE == bomb.yPos || Math.abs((x - 1 + i) * TILESIZE - bomb.xPos) < TILESIZE) {
                     safe = false;
                 }
             }
 
 
             if (safe) {
-                safeCoords.push([i * TILESIZE,j * TILESIZE]);
+                safeCoords.push([i * TILESIZE, j * TILESIZE]);
             }
         }
     }
@@ -130,9 +130,9 @@ function think(arrPulpos, indxPulpo) {
     let nearestDistance = maxDistance;
     for (let pulpo in arrPulpos) {
         let distance = distanceBetweenEntities(arrPulpos[indxPulpo], arrPulpos[pulpo]);
-        if (pulpo != indxPulpo && distance< nearestDistance) {
-                nearestDistance = distance;
-                nearestPulpo = arrPulpos[pulpo];
+        if (pulpo != indxPulpo && distance < nearestDistance) {
+            nearestDistance = distance;
+            nearestPulpo = arrPulpos[pulpo];
         }
     }
     let normalisedDistance = nearestDistance / maxDistance;
@@ -144,12 +144,12 @@ function think(arrPulpos, indxPulpo) {
     arrPulpos[indxPulpo].setRightDirection(false);
 
 
-    let x = Math.trunc(arrPulpos[indxPulpo].xPos/TILESIZE);
-    if (arrPulpos[indxPulpo].xPos % TILESIZE > TILESIZE/2) {
+    let x = Math.trunc(arrPulpos[indxPulpo].xPos / TILESIZE);
+    if (arrPulpos[indxPulpo].xPos % TILESIZE > TILESIZE / 2) {
         x++;
     }
-    let y = Math.trunc(arrPulpos[indxPulpo].yPos/TILESIZE);
-    if (arrPulpos[indxPulpo].yPos % TILESIZE > TILESIZE/2) {
+    let y = Math.trunc(arrPulpos[indxPulpo].yPos / TILESIZE);
+    if (arrPulpos[indxPulpo].yPos % TILESIZE > TILESIZE / 2) {
         y++;
     }
 
