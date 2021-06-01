@@ -3,12 +3,11 @@ let canvas;
 let ctx;
 let gameFocused;
 
-let pause = true;
-let player;
-let startTime;
-let frameCount = 0;
+let pause = true
+
 let then;
-let pulpitos = []
+let pulpitos = [];
+let end = false;
 
 /* Se modifica el tamaño del canvas para que sea el mismo que su
 div padre */
@@ -30,22 +29,38 @@ function update() {
 	map.iterateOverMap(map.updateTile);
 
 	for (let pulpoIndx in pulpitos) {
-		if (pulpitos[pulpoIndx].lives > 0) {
-
-		}
 		pulpitos[pulpoIndx].update();
+		if (!pulpitos[pulpoIndx].isAlive()) {
+			end = true;
+		}
 	}
 }
 
-function drawPauseScreen(factor) {
+function drawPauseScreen() {
+	
 	ctx.beginPath();
 	ctx.globalAlpha = 0.3;
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	ctx.globalAlpha = 1.0;
-	ctx.font = "50px Consolas";
-	ctx.fillText(`Pausa`, 0, 20 * factor);
+	ctx.textAlign = "center"; 
+	if (!end) {
+		ctx.font = "50px Consolas";
+		ctx.fillText(`Pausa`, canvas.width / 2, canvas.width / 2 - 50);
+
+	} else {
+		ctx.font = "50px Consolas";
+		let ganador;
+		if (pulpitos[0].isAlive()) {
+			ganador = "Jugador 1";
+		} else {
+			ganador = "Jugador 2";
+		}
+		ctx.fillText(`Gana ${ganador}`, canvas.width / 2, canvas.width / 2 - 50);
+	}
+
 	ctx.fill()
 	ctx.closePath();
+
 }
 
 /* Esta es la función que desencadena el resto de funciones que se deben 
@@ -56,21 +71,26 @@ function gameCycle() {
 	let elapsed = now - then;
 
 	if (elapsed > FRAMETIME) {
-		frameCount++;
 		then = now - (elapsed % FRAMETIME);
 		scaleCanvas();
 		let factor = canvas.height / VIRTUALHEIGHT;
 
-		if (!pause) {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		if (!pause && !end) {
 			update();
 			draw(factor);
 		} else {
 			draw(factor);
-			drawPauseScreen(factor);
+			drawPauseScreen();
 		}
 
 	}
-	requestAnimationFrame(gameCycle);
+	if (!end) {
+		requestAnimationFrame(gameCycle);
+		
+	} else {
+		drawPauseScreen();
+	}
 }
 
 
@@ -135,6 +155,10 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 
 		}
+		if (event.key === "Enter" && end) {
+			startGame();
+		}
+
 	})
 
 	gameDiv.addEventListener("keyup", (event) => {
@@ -168,13 +192,18 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	})
 
+	function startGame() {
+		pulpitos = [];
+		end = false;
+		map.iterateOverMap(map.initialise)
+		setMaxDistance();
+	
+		pulpitos.push(new Pulpito(TILESIZE, TILESIZE));
+		pulpitos.push(new Pulpito((map[0].length - 2) * TILESIZE, (map.length - 2) * TILESIZE));
+	
+		then = Date.now()
+		gameCycle()
+	}
 
-	map.iterateOverMap(map.initialise)
-	setMaxDistance();
-
-	pulpitos.push(new Pulpito(TILESIZE, TILESIZE));
-	pulpitos.push(new Pulpito((map[0].length - 2) * TILESIZE, (map.length - 2) * TILESIZE));
-
-	then = Date.now()
-	gameCycle()
+	startGame();
 })

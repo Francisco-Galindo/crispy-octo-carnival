@@ -96,7 +96,7 @@ class Pulpito extends Entidad {
 		return false;
 	}
 
-	insideBomb() {
+	isInsideBomb() {
 		let x = Math.trunc(this.xPos / TILESIZE);
 		let y = Math.trunc(this.yPos / TILESIZE);
 
@@ -112,17 +112,33 @@ class Pulpito extends Entidad {
 	}
 
 	update() {
+
 		if (this.isAlive() > 0) {
 			this.move()
 
-			if (!this.insideBomb()) {
+			if (!this.isInsideBomb()) {
 				this.insideBomb = false;
-				console.log("ahi")
 			}
 		}
 
 
 		this.animate()
+
+		let inExplosion = false;
+		let x = Math.trunc(this.xPos / TILESIZE);
+		let y = Math.trunc(this.yPos / TILESIZE);
+
+		for (let i = x - 1; i <= x + 1; i++) {
+			for (let j = y - 1; j <= y + 1; j++) {
+				let tile = map.getTileContent(i, j);
+				if (this.collides(tile) && tile instanceof Explosion) {
+					inExplosion = true;
+				}
+			}
+		}
+		if (inExplosion) {
+			this.lives--;
+		}
 	}
 
 	move() {
@@ -255,7 +271,6 @@ class Pulpito extends Entidad {
 			if (tilesCollide[0] || tilesCollide[1]) {
 				if (tiles[0] instanceof Explosion || tiles[1] instanceof Explosion) {
 					this.lives--;
-					console.log("xd")
 				}
 			}
 		}
@@ -404,6 +419,8 @@ map.initialise = function (x, y) {
 		map.setTileContent(x, y, new Pilar(x, y))
 	} else if (!((y <= 3 || y >= map.length - 4) && (x <= 3 || x >= map[y].length - 4)) && Math.random() > 0.5) {
 		map.setTileContent(x, y, new Caja(x, y))
+	} else {
+		map.setTileContent(x, y, null)
 	}
 }
 
