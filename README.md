@@ -12,7 +12,7 @@
 ## Guía de instalación
 
 Para descargar el proyecto hay dos alternativas principales:
-- Clonar el repositorio de github con el comando
+- Clonar el repositorio de github con el comando:
 ```Bash
 git clone https://github.com/Francisco-Galindo/crispy-octo-carnival.git
 ```
