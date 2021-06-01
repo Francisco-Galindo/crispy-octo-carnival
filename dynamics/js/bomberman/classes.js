@@ -96,7 +96,7 @@ class Pulpito extends Entidad {
 		return false;
 	}
 
-	checkIfInsideBomb() {
+	insideBomb() {
 		let x = Math.trunc(this.xPos / TILESIZE);
 		let y = Math.trunc(this.yPos / TILESIZE);
 
@@ -115,8 +115,9 @@ class Pulpito extends Entidad {
 		if (this.isAlive() > 0) {
 			this.move()
 
-			if (!this.checkIfInsideBomb()) {
+			if (!this.insideBomb()) {
 				this.insideBomb = false;
+				console.log("ahi")
 			}
 		}
 
@@ -254,6 +255,7 @@ class Pulpito extends Entidad {
 			if (tilesCollide[0] || tilesCollide[1]) {
 				if (tiles[0] instanceof Explosion || tiles[1] instanceof Explosion) {
 					this.lives--;
+					console.log("xd")
 				}
 			}
 		}
