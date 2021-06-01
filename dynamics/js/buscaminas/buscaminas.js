@@ -1,6 +1,7 @@
 window.addEventListener("load", () => {
 	const jugar = document.getElementById("play");
 	const salvar = document.getElementById("Save");
+  const tablerominas = document.getElementById("tablerominas");
 
 	let tamano = 8;
 	let puntaje = 0;
