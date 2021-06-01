@@ -27,9 +27,8 @@ class Entidad {
 }
 
 class Pulpito extends Entidad {
-	constructor(xPos, yPos, controlledByHuman) {
-		super(null, xPos, yPos, controlledByHuman)
-		this.controlledByHuman = controlledByHuman;
+	constructor(xPos, yPos) {
+		super(null, xPos, yPos)
 
 		let spriteSheet = new Image();
 		spriteSheet.src = "../statics/img/bomberman/sprites/pulpito_sprite_sheet_lq.png";
@@ -44,8 +43,33 @@ class Pulpito extends Entidad {
 		this.bombExplosionSize = 1;
 	}
 
+	isAlive() {
+		return this.lives > 0;
+	}
 	animate() {
-		return
+		let now = Date.now();
+
+		if (now - this.lastAnimationTime > 100) {
+			if (this.isAlive()) {
+				this.spritePos[1] = 1;
+				this.spritePos[0] = (this.spritePos[0] + 1) % (this.spriteSheet.width/TILESIZE);
+			} else {
+				this.spritePos[1] = 0;
+				if (this.spritePos[0] < this.spriteSheet.width/TILESIZE - 1) {
+					this.spritePos[0]++;
+				}
+			}
+			
+			this.lastAnimationTime = now;
+		}
+		
+
+
+		if (!this.direction[0] && !this.direction[1] && !this.direction[2] && !this.direction[3] && this.isAlive() > 0) {
+			this.spritePos[0] = 0;
+			this.spritePos[1] = 0;
+		}
+
 	}
 
 	setUpDirection(n) {
@@ -88,11 +112,16 @@ class Pulpito extends Entidad {
 	}
 
 	update() {
-		this.move()
+		if (this.isAlive() > 0) {
+			this.move()
 
-		if (!this.checkIfInsideBomb()) {
-			this.insideBomb = false;
+			if (!this.checkIfInsideBomb()) {
+				this.insideBomb = false;
+			}
 		}
+
+
+		this.animate()
 	}
 
 	move() {
@@ -201,6 +230,32 @@ class Pulpito extends Entidad {
 				}
 				this.xPos--;
 			}
+		} else {
+			tiles[0] = map.getTileContent(Math.trunc((this.xPos + TILESIZE)/TILESIZE), 
+				Math.trunc(this.yPos/TILESIZE));
+			tiles[1] = map.getTileContent(Math.trunc((this.xPos + TILESIZE)/TILESIZE), 
+				Math.trunc((this.yPos/TILESIZE) + 1));
+			tiles[2] = map.getTileContent(Math.trunc(((this.xPos + TILESIZE)/TILESIZE) + 1), 
+				Math.trunc((this.yPos/TILESIZE) + 1));
+			tiles[3] = map.getTileContent(Math.trunc(((this.xPos + TILESIZE)/TILESIZE) + 1), 
+				Math.trunc((this.yPos/TILESIZE)));
+
+			tilesCollide[0] = this.collides(tiles[0]);
+			tilesCollide[1] = this.collides(tiles[1]);
+
+			if (tiles[0] instanceof Bomba && this.insideBomb == true) {
+				tilesCollide[0] = false;
+			}
+			if (tiles[1] instanceof Bomba && this.insideBomb == true) {
+				tilesCollide[1] = false;
+			}
+
+
+			if (tilesCollide[0] || tilesCollide[1]) {
+				if (tiles[0] instanceof Explosion || tiles[1] instanceof Explosion) {
+					this.lives--;
+				}
+			}
 		}
 	}
 
@@ -253,9 +308,11 @@ class Bomba extends Bloque {
 
 	}
 
-	animate(now) {
+	animate() {
+		let now = Date.now();
+
 		if (now - this.lastAnimationTime > 500) {
-			this.spritePos[0]++;
+			this.spritePos[0] = (this.spritePos[0] + 1) % (this.spriteSheet.width/TILESIZE);
 			this.lastAnimationTime = now;
 		}
 	}
@@ -291,7 +348,7 @@ class Bomba extends Bloque {
 
 	update() {
 		let now = Date.now();
-		this.animate(now);
+		this.animate();
 		if (now - this.creationTime > this.explisionTime) {
 			
 			this.explode();
