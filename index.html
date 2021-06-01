@@ -57,6 +57,28 @@
             50%  { transform: translate(400px, 30%); }
             100% { transform: translate(0px, 0%); }
         }
+
+        @media screen and (max-width:800px){
+            h1{
+                color: #50FFE1;
+                font-size: 5.5rem;
+                text-align: center;
+            }
+            h1 > img {
+                display: none;
+            }
+            #division{
+                flex-direction: column;
+            }
+            #espacio{
+                width: auto;
+                height: 620px;
+            }
+            #juegos > a > img{
+                margin-left: 30%;
+            }
+            
+        }
     </style>
 </head>
 <body>
