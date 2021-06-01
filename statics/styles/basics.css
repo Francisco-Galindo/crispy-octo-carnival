@@ -22,8 +22,8 @@
 }
 
 #black:hover {
-    width: 700px;
-    height: 500px;
+    width: 600px;
+    height: 400px;
     cursor: pointer;
 }
 
@@ -39,6 +39,17 @@ h3 {
     color: cornsilk;
 }
 
+
+#usuario {
+    width: 50%;
+    height: 80px;
+    margin-left: 250px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgb(204, 151, 253);
+}
 @media screen and (max-width:800px) {
     h1 {
         color: #50FFE1;
@@ -66,10 +77,10 @@ h3 {
     #black {
         margin-top: 25px;
         margin-left: 10px;
-        width: 600px;
+        width: 400;
     }
 
     #black:hover {
-        width: 620px;
+        width: 410px;
     }
 }
