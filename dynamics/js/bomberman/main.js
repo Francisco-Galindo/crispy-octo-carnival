@@ -48,7 +48,7 @@ function drawPauseScreen() {
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	ctx.globalAlpha = 1.0;
 	ctx.textAlign = "center"; 
-
+	ctx.fillStyle = "#FFFFFF"
 	ctx.font = "50px Consolas";
 	ctx.fillText(`Pausa`, canvas.width / 2, canvas.width / 2 - 50);
 
@@ -62,6 +62,7 @@ function drawEndScreen() {
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	ctx.globalAlpha = 1.0;
 	ctx.textAlign = "center"; 
+	ctx.fillStyle = "#FFFFFF"
 	ctx.font = "50px Consolas";
 	let ganador;
 	if (pulpitos[0].isAlive()) {
@@ -108,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	gameDiv = document.getElementById("juego");
 	canvas = document.getElementById("juego-canvas");
 	ctx = canvas.getContext("2d");
-	console.log(canvas)
 
 
 	gameDiv.addEventListener("focus", () => {
@@ -207,8 +207,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		map.iterateOverMap(map.initialise)
 		setMaxDistance();
 	
-		pulpitos.push(new Pulpito(TILESIZE, TILESIZE));
-		pulpitos.push(new Pulpito((map[0].length - 2) * TILESIZE, (map.length - 2) * TILESIZE));
+		pulpitos.push(new Pulpito(TILESIZE, TILESIZE, "../statics/img/bomberman/sprites/pulpito_sprite_sheet_p1.png"));
+		pulpitos.push(new Pulpito((map[0].length - 2) * TILESIZE, (map.length - 2) * TILESIZE, "../statics/img/bomberman/sprites/pulpito_sprite_sheet_p2.png"));
 	
 		then = Date.now()
 		gameCycle()

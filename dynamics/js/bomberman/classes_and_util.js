@@ -7,8 +7,12 @@ const FRAMETIME = 1000 / FRAMERATE;
 
 
 class Entidad {
-	constructor(spriteSheet, xPos, yPos) {
+	constructor(spriteSheetPath, xPos, yPos) {
+		let spriteSheet = new Image();
+		spriteSheet.src = spriteSheetPath;
+
 		this.spriteSheet = spriteSheet;
+
 		this.spritePos = [0, 0]
 		this.xPos = xPos;
 		this.yPos = yPos;
@@ -26,12 +30,9 @@ class Entidad {
 }
 
 class Pulpito extends Entidad {
-	constructor(xPos, yPos) {
-		super(null, xPos, yPos)
+	constructor(xPos, yPos, spriteSheetPath,) {
+		super(spriteSheetPath, xPos, yPos)
 
-		let spriteSheet = new Image();
-		spriteSheet.src = "../statics/img/bomberman/sprites/pulpito_sprite_sheet_lq.png";
-		this.spriteSheet = spriteSheet
 		this.lives = 1;
 		this.score = 0;
 		this.maxBombsInBag = 1;
