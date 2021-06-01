@@ -30,12 +30,13 @@ function update() {
 
 	for (let pulpoIndx in pulpitos) {
 		if (pulpitos[pulpoIndx].lives > 0) {
-			if (pulpitos[pulpoIndx].controlledByHuman) {
-				pulpitos[pulpoIndx].update();
-			} else {
-				think(pulpitos, pulpoIndx);
-			}
+			// if (pulpitos[pulpoIndx].controlledByHuman) {
+			// 	pulpitos[pulpoIndx].update();
+			// } else {
+			// 	think(pulpitos, pulpoIndx);
+			// }
 		}
+		pulpitos[pulpoIndx].update();
 	}
 }
 
@@ -134,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	map.iterateOverMap(map.initialise)
 	setMaxDistance();
-	
+
 	pulpitos.push(new Pulpito(TILESIZE, TILESIZE, true));
 	pulpitos.push(new Pulpito((map[0].length-2) *TILESIZE, TILESIZE, false));
 	pulpitos.push(new Pulpito((map[0].length-2) *TILESIZE, (map.length-2) * TILESIZE, false));
