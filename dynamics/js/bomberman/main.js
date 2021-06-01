@@ -18,6 +18,9 @@ function scaleCanvas() {
 
 // Dibuja todos los elementos del juego (personajes, bloques, etc.)
 function draw(factor) {
+	// Evitar que se aplique Anti-Aliasing, que volvería la imagen borrosa
+	ctx.imageSmoothingEnabled = false;
+
 	map.drawElements(ctx, factor);
 	for (let pulpo of pulpitos) {
 		pulpo.draw(ctx, factor);
@@ -25,15 +28,17 @@ function draw(factor) {
 }
 
 // Actualiza el estado del juego
-function update() {
+function update(end) {
 	map.iterateOverMap(map.updateTile);
 
 	for (let pulpoIndx in pulpitos) {
-		pulpitos[pulpoIndx].update();
+		
 		if (!pulpitos[pulpoIndx].isAlive()) {
 			end = true;
 		}
+		pulpitos[pulpoIndx].update(end);
 	}
+	return end;
 }
 
 function drawPauseScreen() {
@@ -43,54 +48,58 @@ function drawPauseScreen() {
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	ctx.globalAlpha = 1.0;
 	ctx.textAlign = "center"; 
-	if (!end) {
-		ctx.font = "50px Consolas";
-		ctx.fillText(`Pausa`, canvas.width / 2, canvas.width / 2 - 50);
 
-	} else {
-		ctx.font = "50px Consolas";
-		let ganador;
-		if (pulpitos[0].isAlive()) {
-			ganador = "Jugador 1";
-		} else {
-			ganador = "Jugador 2";
-		}
-		ctx.fillText(`Gana ${ganador}`, canvas.width / 2, canvas.width / 2 - 50);
-	}
+	ctx.font = "50px Consolas";
+	ctx.fillText(`Pausa`, canvas.width / 2, canvas.width / 2 - 50);
 
 	ctx.fill()
 	ctx.closePath();
+}
 
+function drawEndScreen() {
+	ctx.beginPath();
+	ctx.globalAlpha = 0.3;
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	ctx.globalAlpha = 1.0;
+	ctx.textAlign = "center"; 
+	ctx.font = "50px Consolas";
+	let ganador;
+	if (pulpitos[0].isAlive()) {
+		ganador = "Jugador 1";
+	} else {
+		ganador = "Jugador 2";
+	}
+	ctx.fillText(`Gana ${ganador}`, canvas.width / 2, canvas.width / 2 - 50);
+	ctx.fill()
+	ctx.closePath();
 }
 
 /* Esta es la función que desencadena el resto de funciones que se deben 
 realizar cada vez que se va a dibujar un nuevo cuadro */
 function gameCycle() {
-
 	let now = Date.now()
 	let elapsed = now - then;
 
 	if (elapsed > FRAMETIME) {
-		then = now - (elapsed % FRAMETIME);
 		scaleCanvas();
+		then = now - (elapsed % FRAMETIME);
 		let factor = canvas.height / VIRTUALHEIGHT;
 
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		if (!pause && !end) {
-			update();
+		if (!pause) {
+			end = update(end);
 			draw(factor);
+			if (end == true) {
+
+				drawEndScreen();
+			}
 		} else {
 			draw(factor);
 			drawPauseScreen();
 		}
 
 	}
-	if (!end) {
-		requestAnimationFrame(gameCycle);
-		
-	} else {
-		drawPauseScreen();
-	}
+	requestAnimationFrame(gameCycle);
 }
 
 
@@ -115,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 		if (event.key === "Escape") {
-			pause = !pause
+			pause = end ? false: !pause;
 		}
 		if (event.key.toLowerCase() === "w") {
 			pulpitos[0].setUpDirection(true);

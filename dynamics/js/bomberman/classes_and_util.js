@@ -18,8 +18,7 @@ class Entidad {
 	}
 
 	draw(ctx, scalingFactor) {
-		// Evitar que se aplique Anti-Aliasing, que volvería la imagen borrosa
-		ctx.imageSmoothingEnabled = false;
+
 
 
 		ctx.drawImage(this.spriteSheet, SPRITESIZE * this.spritePos[0], SPRITESIZE * this.spritePos[1], SPRITESIZE, SPRITESIZE, this.xPos * scalingFactor, this.yPos * scalingFactor, (TILESIZE) * scalingFactor, (TILESIZE) * scalingFactor)
@@ -111,14 +110,15 @@ class Pulpito extends Entidad {
 		return false;
 	}
 
-	update() {
+	update(end) {
 
-		if (this.isAlive() > 0) {
+		if (this.isAlive() > 0 && !end) {
 			this.move()
 
 			if (!this.isInsideBomb()) {
 				this.insideBomb = false;
 			}
+			console.log("xd")
 		}
 
 
