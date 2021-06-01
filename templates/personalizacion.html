@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../lib/bootstrap-5.0.1-dist/css/bootstrap.css">
     <link href="./statics/styles/inicio.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="../statics/img/octo..jpg">
+    <link rel="shortcut icon" href="../statics/img/octo.jpg">
     <title>OCTO-BOOM</title>
     <style>
         @font-face {
@@ -15,7 +15,7 @@
             font-style: normal;
             font-weight:normal;
         }
-        
+
         #espacio{
             width: 1500px;
             height: 600px;
@@ -42,6 +42,32 @@
         body{
             background-image: url("../statics/img/fondomorado.png");
         }
+
+        @media screen and (max-width:800px){
+            h1{
+                color: #50FFE1;
+                font-size: 5.5rem;
+                text-align: center;
+            }
+            h1 > img {
+                display: none;
+            }
+            #espacio{
+              width: 93%;
+              height: 1100px;
+              margin-left: 20px;
+              flex-direction: column;
+            }
+            #black{
+              margin-top: 25px;
+              margin-left: 10px;
+              width: 600px;
+            }
+            #black:hover{
+              width: 620px;
+            }
+            
+        }
     </style>
 </head>
 <body>
@@ -49,7 +75,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#885FBD;">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <img src="../statics/img/octo..jpg" alt="Logo" width="160" height="100">
+            <img src="../statics/img/octo.jpg" alt="Logo" width="160" height="100">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -82,6 +108,6 @@
             <h3>Claro</h3>
         </div>
     </div>
-    <script src="./lib/bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
