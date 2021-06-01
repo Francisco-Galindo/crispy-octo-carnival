@@ -30,11 +30,7 @@ function update() {
 
 	for (let pulpoIndx in pulpitos) {
 		if (pulpitos[pulpoIndx].lives > 0) {
-			// if (pulpitos[pulpoIndx].controlledByHuman) {
-			// 	pulpitos[pulpoIndx].update();
-			// } else {
-			// 	think(pulpitos, pulpoIndx);
-			// }
+
 		}
 		pulpitos[pulpoIndx].update();
 	}
@@ -112,8 +108,31 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (event.key.toLowerCase() === "d") {
 			pulpitos[0].setRightDirection(true);
 		}
-		if (event.key === " ") {
-			pulpitos[0].placeBomb();
+		if (event.key === "e") {
+
+			if (pulpitos[0].isAlive()) {
+				pulpitos[0].placeBomb();
+			}
+
+		}
+
+		if (event.key.toLowerCase() === "i") {
+			pulpitos[1].setUpDirection(true);
+		}
+		if (event.key.toLowerCase() === "k") {
+			pulpitos[1].setDownDirection(true);
+		}
+		if (event.key.toLowerCase() === "j") {
+			pulpitos[1].setLeftDirection(true);
+		}
+		if (event.key.toLowerCase() === "l") {
+			pulpitos[1].setRightDirection(true);
+		}
+		if (event.key === "o") {
+			if (pulpitos[0].isAlive()) {
+				pulpitos[1].placeBomb();
+			}
+
 		}
 	})
 
@@ -130,16 +149,30 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (event.key.toLowerCase() === "d") {
 			pulpitos[0].setRightDirection(false);
 		}
+
+		if (event.key.toLowerCase() === "i") {
+			pulpitos[1].setUpDirection(false);
+		}
+		if (event.key.toLowerCase() === "k") {
+			pulpitos[1].setDownDirection(false);
+		}
+		if (event.key.toLowerCase() === "j") {
+			pulpitos[1].setLeftDirection(false);
+		}
+		if (event.key.toLowerCase() === "l") {
+			pulpitos[1].setRightDirection(false);
+		}
+		if (event.key === "o") {
+			pulpitos[1].placeBomb();
+		}
 	})
 
 
 	map.iterateOverMap(map.initialise)
 	setMaxDistance();
 
-	pulpitos.push(new Pulpito(TILESIZE, TILESIZE, true));
-	pulpitos.push(new Pulpito((map[0].length-2) *TILESIZE, TILESIZE, false));
-	pulpitos.push(new Pulpito((map[0].length-2) *TILESIZE, (map.length-2) * TILESIZE, false));
-	pulpitos.push(new Pulpito(TILESIZE, (map.length-2) * TILESIZE, false));
+	pulpitos.push(new Pulpito(TILESIZE, TILESIZE));
+	pulpitos.push(new Pulpito((map[0].length-2) *TILESIZE, (map.length-2) * TILESIZE));
 
 	then = Date.now()
 	gameCycle()
