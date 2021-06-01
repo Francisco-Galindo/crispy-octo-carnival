@@ -1,0 +1,14 @@
+#espacio {
+    width: 1500px;
+    height: 600px;
+    margin-left: 200px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background: none;
+}
+
+body {
+    background-image: url("../img/fondomorado.png");
+}

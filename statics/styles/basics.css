@@ -1,0 +1,86 @@
+@font-face {
+    font-family: 'Sahita';
+    src: url('../../../statics/fonts/Sahita/Sahitya-Bold.ttf');
+    font-style: normal;
+    font-weight: normal;
+}
+
+#espacio {
+    width: 75%;
+    height: 600px;
+    margin-left: 200px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgb(204, 151, 253);
+}
+
+#black {
+    margin-top: 50px;
+    margin-left: 60px;
+}
+
+#black:hover {
+    width: 600px;
+    height: 400px;
+    cursor: pointer;
+}
+
+body {
+    background-image: url("../statics/img/fondomorado.png");
+}
+
+h3 {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 3rem;
+    font-family: "Sahita";
+    color: cornsilk;
+}
+
+
+#usuario {
+    width: 50%;
+    height: 80px;
+    margin-left: 250px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgb(204, 151, 253);
+}
+@media screen and (max-width:800px) {
+    h1 {
+        color: #50FFE1;
+        font-size: 5.5rem;
+        text-align: center;
+    }
+
+    h1>img {
+        display: none;
+    }
+
+    #espacio {
+        width: 100%;
+        height: auto;
+        margin-left: 20px;
+    }
+
+    h3 {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 2rem;
+    }
+
+    
+    #black {
+        margin-top: 25px;
+        margin-left: 10px;
+        width: 400;
+    }
+
+    #black:hover {
+        width: 410px;
+    }
+}
