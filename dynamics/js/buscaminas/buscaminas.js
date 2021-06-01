@@ -70,7 +70,7 @@ window.addEventListener("load", ()=>{
       }
       console.log(perder);
       if(perder==1){
-        document.body.innerHTML="<h1>PERDISTE!!!</h1><br><h2>Puntaje:"+puntaje+"</h2>";
+        document.body.innerHTML="<h1>FIN DEL JUEGO!!!</h1><br><h2>Puntaje:"+puntaje+"</h2>";
         document.cookie="puntaje="+puntaje+" expires="+fecha.toGMTString(fecha.setTime(fecha.getTime()+1000*60*30));
       }
       }				
