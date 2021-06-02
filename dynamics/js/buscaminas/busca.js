@@ -7,7 +7,7 @@ window.addEventListener("load", () => {
 	})
 
 	let tamano = 8;
-	let numBombas = tamano;
+	let numBombas = 2;
 	let puntaje;
 	let perdido = false;
 	let click = 0;
@@ -18,9 +18,8 @@ window.addEventListener("load", () => {
 
     function terminar(){
         puntos = ((Date.now()-inicio) / 1000) + puntaje;
-        document.body.innerHTML = "<h1>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
+        document.getElementById("mensaje").innerHTML = "<h2>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
         var cantidadp = document.cookie = "puntaje=" + puntos + " expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
-        console.log(cantidadp);
     }
 
 	//Se crea una matriz del tamaño de la variable tamano, tanto de numero de columnas como de filas
@@ -42,6 +41,7 @@ window.addEventListener("load", () => {
 			for (let j = 0; j < tamano; j++) {
 				let div = document.createElement("div");
 				div.classList.add("casilla-cerrada")
+				div.classList.add("casilla")
 				div.id = i + "" + j;
 				//Se agrega el evento del click a cada celda.
 				if (!perdido) {
@@ -61,14 +61,25 @@ window.addEventListener("load", () => {
 		if (!perdido) {
 			click++;
 			let myId = this.id
-			abrirCasillasCercanas(myId[0], myId[1])
+			new Promise((resolve) => {
+				abrirCasillasCercanas(myId[0], myId[1])
+				resolve();
+				console.log('hola')
+			}). then(() => {
+				console.log("xd")
+				if (contarCasillasNoAbiertas() == numBombas) {
+					terminar();
+
+				}
+			})
+			
 
 		}
 
 	}
 
 	function ponerBandera(div) {
-		if (!perdido) {
+		if (!perdido && !div.classList.contains("casilla-abierta")) {
 			div.classList.toggle("casilla-bandera")
 		}
 	}
@@ -88,7 +99,6 @@ window.addEventListener("load", () => {
 		} else if (minas[x][y] == "*") {
 			// Terminar juego si se ha abierto una bomba
 			perder();
-			tablero(minas)
 		} else if (minas[x][y] == 0) {
 			// Abre la casilla vacía
 			minas[x][y] = "_"
@@ -110,8 +120,10 @@ window.addEventListener("load", () => {
 	function mostrarContenido(x, y) {
 		let id = `${x}${y}`;
 		div = document.getElementById(id);
-		div.style.backgroundColor = "#bfc3d6";
+		div.classList.remove("casilla-bandera")
+		div.classList.add("casilla-abierta");
 		div.innerHTML = minas[x][y];
+		div.classList.remove("casilla-cerrada")
 	}
 
 	//Coloca las bombas en una posicion aleatoria
@@ -119,8 +131,11 @@ window.addEventListener("load", () => {
 		let fil = 0;
 		let col = 0;
 		for (let i = 0; i < numBombas; i++) {
-			fil = Math.floor((Math.random() * tamano));
-			col = Math.floor((Math.random() * tamano));
+			do {
+				fil = Math.floor((Math.random() * tamano));
+				col = Math.floor((Math.random() * tamano));
+				console.log(fil, col)
+			} while (tablero[fil][col] == "*");
 			tablero[fil][col] = "*";
 
 			for (let x = fil - 1; x <= fil + 1; x++) {
@@ -134,6 +149,21 @@ window.addEventListener("load", () => {
 		}
 	}
 
+	function contarCasillasNoAbiertas() {
+		let casillas = 0;
+		for (let i = 0; i < tamano; i++) {
+			for (let j = 0; j < tamano; j++) {
+				let myid = i + "" + j;
+				let objDiv = document.getElementById(myid);
+				if (objDiv.classList.contains("casilla-cerrada")) {
+					console.log(objDiv.classList.contains("casilla-cerrada"))
+					casillas++;
+				}
+			}
+		}
+		console.log(casillas)
+		return casillas;
+	}
 
 
 	//Muestra la posicion de las bombas en el tablero al perder
@@ -144,7 +174,6 @@ window.addEventListener("load", () => {
 				let objDiv = document.getElementById(myid);
 				if (tablero[i][j] == "*") {
 					objDiv.style.background = "#f3f3f3 url('../statics/img/bomba.jpg') no-repeat right top";
-                    terminar();
 				}
 			}
 		}
@@ -168,7 +197,9 @@ window.addEventListener("load", () => {
 
 	function perder() {
 		perdido = true;
-
+		document.getElementById("mensaje").innerHTML = "Has perdido... Da click en volver a jugar para intentar de nuevo"
+		tablero(minas)
+		
 	}
 
 	// puntaje = Date.now()-inicio) / 1000;
