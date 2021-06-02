@@ -14,7 +14,6 @@ window.addEventListener("load", () => {
 	//Se crea una matriz del tamaño de la variable tamano, tanto de numero de columnas como de filas
 	function matriz() {
 		const tabla = [];
-		const linea = [];
 		for (let i = 0; i < tamano; i++) {
 			tabla[i] = [];
 			for (let j = 0; j < tamano; j++) {
@@ -204,7 +203,7 @@ window.addEventListener("load", () => {
 				var myid = i + "" + j;
 				var objDiv = document.getElementById(myid);
 				if (tablero[i][j] == "*") {
-					objDiv.style.background = "#f3f3f3 url('img/bomba.jpg') no-repeat right top";
+					objDiv.style.background = "#f3f3f3 url('../statics/img/bomba.jpg') no-repeat right top";
 				}
 			}
 		}
