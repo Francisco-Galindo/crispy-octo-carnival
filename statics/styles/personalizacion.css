@@ -1,0 +1,45 @@
+#black, #white {
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+#espacio {
+    height: 580px;
+    flex-direction: row;
+}
+
+body {
+    background-image: url("../img/fondomorado.png");
+}
+
+h3 {
+    color: #010033;
+}
+
+@media screen and (max-width:800px) {
+    #espacio {
+        width: 93%;
+        height: auto;
+        margin-left: 20px;
+        flex-direction: column;
+    }
+
+    #usuario {
+        margin-left: 150px;
+    }
+
+    #black,
+    #white {
+        margin-top: 20px;
+        margin-left: 10px;
+        width: 550px;
+    }
+
+    #black:hover {
+        width: 500px;
+    }
+
+    #white:hover {
+        width: 500px;
+    }
+}

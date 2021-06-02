@@ -10,47 +10,8 @@
 	<link rel="stylesheet" href="../lib/fontawesome-free-5.15.3-web/css/all.css" rel="stylesheet" type="text/css" />
 	<link rel="shortcut icon" href="../statics/img/octo.jpg">
 	<link rel="stylesheet" href="../statics/styles/basics.css">
+	<link rel="stylesheet" href="../statics/styles/personalizacion.css">
 	<title>OCTO-BOOM</title>
-	<style>
-		#black, #white {
-			margin-top: 20px;
-			margin-left: 50px;
-		}
-		#espacio {
-			height: 580px;
-			flex-direction: row;
-		}
-
-		body {
-			background-image: url("../statics/img/fondomorado.png");
-		}
-		h3{
-			color:#010033;
-		}
-
-		@media screen and (max-width:800px) {
-			#espacio {
-				width: 93%;
-				height: auto;
-				margin-left: 20px;
-				flex-direction: column;
-			}
-			#usuario {
-				margin-left: 150px;
-			}
-			#black, #white{
-				margin-top: 20px;
-				margin-left: 10px;
-				width: 550px;
-			}
-			#black:hover{
-				width: 500px;
-			}
-			#white:hover{
-				width: 500px;
-			}
-		}
-	</style>
 </head>
 
 <body>
@@ -59,7 +20,7 @@
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">
 				<img src="../statics/img/octo.jpg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-				
+
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,16 +29,20 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="../index.html" tabindex="0"><i class="fas fa-home"></i> Inicio</a>
+						<a class="nav-link" aria-current="page" href="../index.html" tabindex="0"><i
+								class="fas fa-home"></i> Inicio</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="./personalizacion.html" tabindex="0"><i class="fas fa-pen-nib"></i> Personalización</a>
+						<a class="nav-link active" href="./personalizacion.html" tabindex="0"><i class="fas fa-pen-nib"></i>
+							Personalización</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="./puntajes.html" tabindex="0"><i class="fas fa-gamepad"></i> Puntajes</a>
+						<a class="nav-link" href="./puntajes.html" tabindex="0"><i class="fas fa-gamepad"></i>
+							Puntajes</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="./creditos.html" tabindex="0" aria-disabled="true"><i class="fas fa-users"></i> Creditos</a>
+						<a class="nav-link" href="./creditos.html" tabindex="0" aria-disabled="true"><i
+								class="fas fa-users"></i> Creditos</a>
 					</li>
 				</ul>
 			</div>
@@ -88,7 +53,7 @@
 		<label>Usuario:
 			<input type="text" holder="usuario" id="name">
 		</label>
-		<label> 
+		<label>
 			<button id="ingresar">Ingresar</button>
 		</label>
 	</div>
