@@ -1,14 +1,14 @@
 window.addEventListener("load", () => {
     const jugar = document.getElementById("play");
     const salvar = document.getElementById("Save");
-	const tablerominas = document.getElementById("tablerominas");
+	const tablero = document.getElementById("tablerominas");
 	document.getElementById("play").addEventListener("click", () => {
 		window.location.reload();
 	})
 
 	let tamano = 8;
 	let numBombas = tamano;
-	let puntaje=0;
+	let puntaje;
 	let perdido = false;
 	let click = 0;
 	let fecha = new Date();
@@ -19,6 +19,7 @@ window.addEventListener("load", () => {
 	// Inicia el juego XD
 	function iniciarJuego() {
 		minas = matriz();
+		console.log(minas);
 		crearTablero();
 		generarBombas(minas);
 
@@ -222,7 +223,7 @@ window.addEventListener("load", () => {
 		puntos = ((Date.now()-inicio) / 1000) + puntaje;
 		console.log(puntos);
         document.body.innerHTML = "<h1>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
-        var cantidadp = document.cookie = "puntajePBM=" + puntos + " expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
+        var cantidadp = document.cookie = "puntajePBM=" + puntos + "; expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
         console.log(cantidadp);
     })
 
