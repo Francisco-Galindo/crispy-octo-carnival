@@ -15,13 +15,7 @@ window.addEventListener("load", ()=>{
     var fondo=obtenercookie('fondo');
 
     if(fondo=="blanco"){
-        console.log("blanco");
-        document.body.style.background= "url('../statics/img/fondoclaro.png')";
         letras.style.background= "#010033";
-    }
-    else if(fondo=="negro"){
-        console.log("n");
-        letras.style.background= "url('../statics/img/fondomorado.png')";
     }
 
 })

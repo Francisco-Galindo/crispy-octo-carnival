@@ -12,17 +12,6 @@ window.addEventListener("load", ()=>{
         }
     } 
 
-    var fondo=obtenercookie('fondo');
-
-    if(fondo=="blanco"){
-        console.log("blanco");
-        document.body.style.background= "url('../statics/img/fondoclaro.png')";
-    }
-    else if(fondo=="negro"){
-        console.log("n");
-        document.body.style.background= "url('../statics/img/fondomorado.png')";
-    }
-
     var puntajePBM=obtenercookie('puntaje');
     console.log(puntajePBM);
     puntosBM.innerHTML="<h3>"+puntajePBM+"</>";

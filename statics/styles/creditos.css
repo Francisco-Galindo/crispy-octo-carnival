@@ -2,7 +2,9 @@
     display: flex;
     flex-direction: column;
     text-align: center;
+    width: 450px;
     background: none;
+    
 }
 
 body {
