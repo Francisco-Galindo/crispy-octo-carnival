@@ -33,6 +33,7 @@
 
 body {
     background-image: url("../statics/img/fondomorado.png");
+    overflow: hidden;
 }
 
 h3 {
