@@ -6,7 +6,7 @@
 ## Integrantes:
 - Figueroa Hernández Fernando
 - Galindo Mena Francisco
-- Ramírez Jazmín (Falta nombre completo)
+- Ramírez Domínguez Karla Jazmín
 - del Valle Vera Nancy Elena
 
 ## Guía de instalación
@@ -21,7 +21,8 @@ git clone https://github.com/Francisco-Galindo/crispy-octo-carnival.git
 
 ## Guía de configuración
 
-Al tratarse de un proyecto realizado enteramente con HTML, CSS y JS, no es necesario el uso de ningún tipo de servidor, tampoco se necesita configuración alguna.
+Una vez descargado el proyecto, se requiere que este sea guardado en la carpeta que se encuentra dentro de la carpeta xampp, llamado htdocs, el cual debe contener a su vez una carpeta con el nombre de Octo en el que será guardado el proyecto.
+Para un buen uso de las páginas web, se solicita el uso del servidor apache, el cual debe ser encendido.
 
 Para empezar a hacer uso del proyecto, sólo es necesario abrir el archivo "index.html" en su navegador de preferencia.
 
