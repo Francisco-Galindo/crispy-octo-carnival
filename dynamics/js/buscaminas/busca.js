@@ -4,7 +4,7 @@ window.addEventListener("load", () => {
 	const tablerominas = document.getElementById("tablerominas");
 
 	let tamano = 8;
-	let puntaje;
+	let puntaje=0;
 	let perder = false;
 	let click = 0;
 	let fecha = new Date();
@@ -15,7 +15,7 @@ window.addEventListener("load", () => {
     function terminar(){
         puntos = ((Date.now()-inicio) / 1000) + puntaje;
         document.body.innerHTML = "<h1>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
-        var cantidadp = document.cookie = "puntaje=" + puntos + " expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
+        var cantidadp = document.cookie = "puntajePBM=" + puntos + " expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
         console.log(cantidadp);
     }
 
@@ -166,7 +166,11 @@ window.addEventListener("load", () => {
     })
 
     salvar.addEventListener("click", () => {
-        terminar();
+		puntos = ((Date.now()-inicio) / 1000) + puntaje;
+		console.log(puntos);
+        document.body.innerHTML = "<h1>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
+        var cantidadp = document.cookie = "puntajePBM=" + puntos + " expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
+        console.log(cantidadp);
     })
 
 	// Date.now()-inicio) / 1000;
