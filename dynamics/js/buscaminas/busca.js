@@ -1,13 +1,11 @@
 window.addEventListener("load", () => {
-    const jugar = document.getElementById("play");
-    const salvar = document.getElementById("Save");
-	const tablero = document.getElementById("tablerominas");
+	const tablerominas = document.getElementById("tablerominas");
 	document.getElementById("play").addEventListener("click", () => {
 		window.location.reload();
 	})
 
 	let tamano = 8;
-	let numBombas = tamano;
+	let numBombas = 2;
 	let puntaje;
 	let perdido = false;
 	let click = 0;
@@ -34,15 +32,15 @@ window.addEventListener("load", () => {
 	}
 
     function terminar(){
-        puntos = ((Date.now()-inicio) / 1000) + puntaje;
+        puntaje = ((Date.now()-inicio) / 1000);
         document.getElementById("mensaje").innerHTML = "<h2>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
-        var cantidadp = document.cookie = "puntaje=" + puntos + "; expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
+        var cantidadp = document.cookie = "puntaje=" + puntaje + "; expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
 		console.log(cantidadp);
     }
 
 	function perder() {
 		perdido = true;
-		document.getElementById("mensaje").innerHTML = "Has perdido... Da click en volver a jugar para intentar de nuevo"
+		document.getElementById("mensaje").innerHTML = "<h2>Has perdido... Da click en volver a jugar para intentar de nuevo</h2>"
 		tablero(minas)	
 	}
 
@@ -201,6 +199,7 @@ window.addEventListener("load", () => {
 
 	// Inicia el juego XD
 	function iniciarJuego() {
+		minas = matriz();
 		crearTablero();
 		generarBombas(minas);
 
@@ -213,19 +212,6 @@ window.addEventListener("load", () => {
 		}
 
 	}
-
-    jugar.addEventListener("click",()=>{
-        location.href="../templates/buscaminas.html";
-        puntaje=0;
-    })
-
-    salvar.addEventListener("click", () => {
-		puntos = ((Date.now()-inicio) / 1000) + puntaje;
-		console.log(puntos);
-        document.body.innerHTML = "<h1>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
-        var cantidadp = document.cookie = "puntajePBM=" + puntos + "; expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
-        console.log(cantidadp);
-    })
 
 	// Date.now()-inicio) / 1000;
 

@@ -23,6 +23,7 @@ window.addEventListener("load", ()=>{
         document.body.style.background= "url('../statics/img/fondomorado.png')";
     }
 
-    var puntajePBM=obtenercookie('puntajePBM');
+    var puntajePBM=obtenercookie('puntaje');
+    console.log(puntajePBM);
     puntosBM.innerHTML="<h3>"+puntajePBM+"</>";
 })
