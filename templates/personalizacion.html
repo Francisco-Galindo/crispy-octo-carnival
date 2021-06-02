@@ -12,53 +12,45 @@
 	<link rel="stylesheet" href="../statics/styles/basics.css">
 	<title>OCTO-BOOM</title>
 	<style>
-
+		#black {
+			margin-top: 20px;
+			margin-left: 50px;
+		}
 		#espacio {
+			height: 580px;
 			flex-direction: row;
 		}
 
 		body {
 			background-image: url("../statics/img/fondomorado.png");
 		}
+		h3{
+			color:#010033;
+		}
 
+		@media screen and (max-width:800px) {
+			#espacio {
+				width: 93%;
+				height: auto;
+				margin-left: 20px;
+				flex-direction: column;
+			}
+			#usuario {
+				margin-left: 150px;
+			}
+			#black {
+				margin-top: 20px;
+				margin-left: 10px;
+				width: 550px;
+			}
+			#black:hover{
+				width: 500px;
+			}
+		}
 	</style>
 </head>
 
 <body>
-	<!-- <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#885FBD;">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">
-				<img src="../statics/img/octo.jpg" alt="Logo" width="160" height="100">
-			</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="../index.html">
-							<h2><i class="fas fa-home"></i> Pagina Principal</h2>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="./personalizacion.html">
-							<h2><i class="fas fa-pen-nib"></i> Personalización</h2>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="./puntajes.html">
-							<h2><i class="fas fa-gamepad"></i> Puntajes</h2>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="./creditos.html">
-							<h2><i class="fas fa-users"></i> Creditos </h2>
-						</a>
-					</li>
-			</div>
-		</div>
-	</nav> -->
 
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #885FBD;">
 		<div class="container-fluid">
@@ -90,25 +82,21 @@
 	</nav>
 	<h1><img src="../statics/img/octoboom.png" alt="Logo" width="200" height="200"> Personalización</h1>
 	<div id="usuario">
-		<label> Usuario:
+		<label>Usuario:
 			<input type="text" holder="usuario" id="name">
 		</label>
 		<label> 
 			<button id="ingresar">Ingresar</button>
 		</label>
 	</div>
-	
-
-
-
 
 	<div id="espacio">
 		<div>
-			<img id="black" src="../statics/img/fondomorado.png" alt="fondo morado" width="450" height="250">
+			<img id="black" src="../statics/img/fondomorado.png" alt="fondo morado" width="650" height="450">
 			<h3>Oscuro</h3>
 		</div>
 		<div>
-			<img id="black" src="../statics/img/fondoclaro.png" alt="fondo claro" width="450" height="250">
+			<img id="black" src="../statics/img/fondoclaro.png" alt="fondo claro" width="650" height="450">
 			<h3>Claro</h3>
 		</div>
 	</div>

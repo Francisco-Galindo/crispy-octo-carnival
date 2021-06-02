@@ -17,7 +17,7 @@
 }
 
 #black {
-    margin-top: 50px;
+    margin-top: 20px;
     margin-left: 60px;
 }
 
@@ -43,13 +43,19 @@ h3 {
 #usuario {
     width: 50%;
     height: 80px;
-    margin-left: 250px;
+    margin-left: 450px;
     margin-top: 10px;
     display: flex;
     flex-direction: column;
     text-align: center;
     background-color: rgb(204, 151, 253);
 }
+
+label{
+    margin-top: 5px;
+    text-align: center;
+}
+
 @media screen and (max-width:800px) {
     h1 {
         color: #50FFE1;

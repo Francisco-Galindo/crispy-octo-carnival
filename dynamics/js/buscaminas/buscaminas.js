@@ -151,10 +151,8 @@ window.addEventListener("load", () => {
 				var objDiv = document.getElementById(myid)
 				if (objDiv.textContent == "") {
 					if (tablero[i][j] == 0) {
-						if (i == cori && j == corj) {
-							objDiv.textContent = "";
-							objDiv.style.backgroundColor = "#bfc3d6";
-						}
+						objDiv.textContent = "";
+						objDiv.style.backgroundColor = "#bfc3d6";
 					} else {
 						if (tablero[i][j] != "*") {
 							document.getElementById(myid).innerHTML = "<p style='margin-top:15px;'>" + tablero[i][j] + "</p>";
