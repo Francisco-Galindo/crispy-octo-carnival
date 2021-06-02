@@ -33,8 +33,8 @@ window.addEventListener("load", () => {
     function terminar(){
         puntaje = ((Date.now()-inicio) / 1000);
         document.getElementById("mensaje").innerHTML = "<h2>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
-        var cantidadp = document.cookie = "puntaje=" + puntaje + "; expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
-		console.log(cantidadp);
+        var cantidadp = document.cookie = "puntaje=" + puntaje + "; expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30))  + "; path=../../";
+		console.log(cantidadp, 'wtf');
     }
 
 	function perder() {

@@ -7,6 +7,16 @@
     height: 580px;
     flex-direction: row;
 }
+#black, #white {
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 80%;
+}
+#black:hover, #white:hover {
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 90%;
+}
 
 body {
     background-image: url("../img/fondomorado.png");
@@ -28,8 +38,7 @@ h3 {
         margin-left: 150px;
     }
 
-    #black,
-    #white {
+    #black, #white {
         margin-top: 20px;
         margin-left: 10px;
         width: 550px;

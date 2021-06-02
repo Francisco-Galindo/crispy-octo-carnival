@@ -1,3 +1,13 @@
+
+body {
+    background-image: url("../img/fondomorado.png");
+    display: grid;
+    align-content: center;
+}
+p {
+    font-family: "Roboto";
+    color: cornsilk;
+}
 #espacio {
     display: flex;
     flex-direction: column;
@@ -5,11 +15,6 @@
     background: none;
 }
 
-body {
-    background-image: url("../img/fondomorado.png");
-    display: grid;
-    align-content: center;
-}
 
 @media screen and (max-width:800px) {
     #espacio {

@@ -1,5 +1,6 @@
 window.addEventListener("load", ()=>{
 
+    // Regresa la cookie pedida
     function obtenercookie(nombrecookie){
         let cookies = document.cookie;
         let arreglo = cookies.split('; ');
@@ -11,14 +12,13 @@ window.addEventListener("load", ()=>{
         }
     } 
 
-    var fondo=obtenercookie('fondo');
+    let fondo=obtenercookie('fondo');
 
+    // Cambia el color de fondo de la vista
     if(fondo=="blanco"){
-        console.log("blanco");
         document.body.style.background= "url('../statics/img/fondoclaro.png')";
     }
     else if(fondo=="negro"){
-        console.log("n");
-        letras.style.background= "url('../statics/img/fondomorado.png')";
+        document.body.style.background= "url('../statics/img/fondomorado.png')";
     }
 })
