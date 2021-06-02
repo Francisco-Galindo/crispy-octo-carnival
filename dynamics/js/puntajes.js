@@ -1,6 +1,4 @@
 window.addEventListener("load", ()=>{
-    let puntosBM=document.getElementById("puntajesPBM");
-
     function obtenercookie(nombrecookie){
         let cookies = document.cookie;
         let arreglo = cookies.split('; ');
@@ -12,7 +10,9 @@ window.addEventListener("load", ()=>{
         }
     } 
 
-    var puntajePBM=obtenercookie('puntaje');
-    console.log(puntajePBM);
-    puntosBM.innerHTML="<h3>"+puntajePBM+"</>";
+    let puntosBM=document.getElementById("puntajesPBM");
+    let pbm=obtenercookie("puntaje");
+
+    puntosBM.innerHTML="<h2>"+pbm+"</h2>"
+    
 })

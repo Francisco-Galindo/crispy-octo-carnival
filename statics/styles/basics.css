@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Sahita';
-    src: url('../../../statics/fonts/Sahita/Sahitya-Bold.ttf');
+    src: url('..//../../statics/fonts/Sahita/Sahitya-Bold.ttf');
     font-style: normal;
     font-weight: normal;
 }
@@ -33,7 +33,6 @@
 
 body {
     background-image: url("../statics/img/fondomorado.png");
-    overflow: hidden;
 }
 
 h3 {

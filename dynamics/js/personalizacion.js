@@ -1,16 +1,5 @@
 window.addEventListener("load", ()=>{
 
-    function obtenercookie(nombrecookie){
-        let cookies = document.cookie;
-        let arreglo = cookies.split('; ');
-        for(const valor of arreglo){
-            const cookie=valor.split('=')
-            if(cookie[0]===nombrecookie){
-                return cookie[1];
-            }
-        }
-    }  
-
     let ingresar=document.getElementById("ingresar");
     let usuario=document.getElementById("name");
     let blanco =document.getElementById("white");
@@ -22,13 +11,12 @@ window.addEventListener("load", ()=>{
         {
             let week = new Date();
             week.setTime(week.getTime() + 1000*60*24*7);
-            var newCoo= document.cookie="usuario="+ Nombre +"; expires="+ week.toUTCString();
+            var newCoo= document.cookie="usuario="+ Nombre +"; expires="+ week.toUTCString() + "; path=/Octo/crispy-octo-carnival/";
             document.cookie = "prueba=cookie";
             alert(newCoo);
         }
         
         var name=obtenercookie('usuario');
-        console.log (name);
 
         if(name==Nombre){
             alert('Usuario Existente');
@@ -36,23 +24,19 @@ window.addEventListener("load", ()=>{
     })
 
     blanco.addEventListener("click",()=>{
-        var name=obtenercookie('usuario');
 
         let week = new Date();
             week.setTime(week.getTime() + 1000*60*24*7);
-            var newFondo= document.cookie="fondo=blanco; expires="+ week.toUTCString();
-            alert(newFondo);
-            console.log(newFondo);
+            document.cookie="fondo=blanco; expires="+ week.toUTCString()  + "; path=/Octo/crispy-octo-carnival/";
+            window.location.reload()
     })
 
     negro.addEventListener("click",()=>{
-        var name=obtenercookie('usuario');
 
         let week = new Date();
             week.setTime(week.getTime() + 1000*60*24*7);
-            var newFondo= document.cookie="fondo=negro; expires="+ week.toUTCString();
-            alert(newFondo);
-            console.log(newFondo);
+            document.cookie="fondo=negro; expires="+ week.toUTCString()  + "; path=/Octo/crispy-octo-carnival/";
+            window.location.reload()
     })
 })
 
