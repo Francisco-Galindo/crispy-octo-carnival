@@ -33,9 +33,9 @@
 	</style>
 </head>
 
-<body oncontextmenu="return false;">
+<body>
 
-	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #885FBD;">
+	<nav class="navbar navbar-expand-lg navbar-dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">
 				<img src="../statics/img/octo.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
@@ -63,13 +63,22 @@
 			</div>
 		</div>
 	</nav>
-	<h1>Buscaminas</h1>
-	<h2>¿Como jugar?</h2>
-	<h2>Con un click revelas lo que cada casilla esconde y con dos coloca una banderita</h2>
-	<button id="play">Jugar</button>
-	<button id="Save">Terminar Partida</button>
-	<div id="tablerominas" class="tablero"></div>
-	
+
+	<main>
+		<br>
+		<h2>Buscaminas</h2>
+		<div id="mensaje">
+			<h3>¿Como jugar?</h3>
+			<h3>Con click revelas lo que cada casilla esconde y con click derecho colocas una banderita</h2>
+		</div>
+
+		<div id="tablerominas" class="tablero"></div>
+
+		<br>
+		<button id="play" class="btn btn-info">Jugar de nuevo</button>
+		
+	</main>
+
 
 	<script src="../lib/bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js"></script>
 	<script src="../dynamics/js/buscaminas/busca.js"></script>

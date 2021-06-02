@@ -7,7 +7,11 @@ body {
     background-image: url("../img/fondomorado.png");
 }
 
-#juegos>a>img:hover {
+#juegos {
+    z-index: 1;
+}
+
+#juegos>a>img:hover, #juegos>a:focus {
     width: 270px;
     height: 270px;
 }
@@ -21,6 +25,7 @@ body {
 
 #espacio {
     width: 75%;
+    background: none;
 }
 
 #espacio>img:nth-child(2) {

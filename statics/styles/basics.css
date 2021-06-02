@@ -5,6 +5,10 @@
     font-weight: normal;
 }
 
+.navbar, .navbar-expand-lg {
+    background-color: #885FBD !important;
+}
+
 #espacio {
     width: 75%;
     height: 600px;
