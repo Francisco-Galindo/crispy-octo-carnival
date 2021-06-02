@@ -80,7 +80,9 @@ window.addEventListener("load", () => {
 		}
 		if (perder == 1) {
 			document.body.innerHTML = "<h1>FIN DEL JUEGO!!!</h1><br><h2>Puntaje:" + puntaje + "</h2>";
-			document.cookie = "puntaje=" + puntaje + " expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
+			fecha.setTime(fecha.getTime() + 1000*60*24*7);
+			var nuevaCookie= document.cookie="Puntaje="+ puntaje +"; expires="+ fecha.toUTCString();
+			alert(nuevaCookie);
 		}
 	}
 
@@ -219,7 +221,10 @@ window.addEventListener("load", () => {
 
 	salvar.addEventListener("click", () => {
 		document.body.innerHTML = "<h1>FIN DEL JUEGO!!!</h1><br><h2>Puntaje:" + puntaje + "</h2>";
-		document.cookie = "puntaje=" + puntaje + " expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
+		fecha.setTime(fecha.getTime() + 1000*60*24*7);
+		var nuevaCookie= document.cookie="Puntaje="+ puntaje +"; expires="+ fecha.toUTCString();
+		document.cookie = "prueba=cookie";
+		alert(nuevaCookie);
 	})
 
 })
