@@ -11,13 +11,12 @@ window.addEventListener("load", ()=>{
         {
             let week = new Date();
             week.setTime(week.getTime() + 1000*60*24*7);
-            var newCoo= document.cookie="usuario="+ Nombre +"; expires="+ week.toUTCString() + "; path=../";
+            var newCoo= document.cookie="usuario="+ Nombre +"; expires="+ week.toUTCString() + "; path=/Octo/crispy-octo-carnival/";
             document.cookie = "prueba=cookie";
             alert(newCoo);
         }
         
         var name=obtenercookie('usuario');
-        console.log (name);
 
         if(name==Nombre){
             alert('Usuario Existente');
@@ -28,7 +27,7 @@ window.addEventListener("load", ()=>{
 
         let week = new Date();
             week.setTime(week.getTime() + 1000*60*24*7);
-            document.cookie="fondo=blanco; expires="+ week.toUTCString();
+            document.cookie="fondo=blanco; expires="+ week.toUTCString()  + "; path=/Octo/crispy-octo-carnival/";
             window.location.reload()
     })
 
@@ -36,7 +35,7 @@ window.addEventListener("load", ()=>{
 
         let week = new Date();
             week.setTime(week.getTime() + 1000*60*24*7);
-            document.cookie="fondo=negro; expires="+ week.toUTCString();
+            document.cookie="fondo=negro; expires="+ week.toUTCString()  + "; path=/Octo/crispy-octo-carnival/";
             window.location.reload()
     })
 })
