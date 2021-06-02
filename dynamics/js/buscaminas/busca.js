@@ -5,7 +5,7 @@ window.addEventListener("load", () => {
 	})
 
 	let tamano = 8;
-	let numBombas = 2;
+	let numBombas = 8;
 	let puntaje;
 	let perdido = false;
 	let click = 0;
@@ -17,6 +17,7 @@ window.addEventListener("load", () => {
 	// Inicia el juego XD
 	function iniciarJuego() {
 		minas = matriz();
+		console.log(minas);
 		crearTablero();
 		generarBombas(minas);
 
@@ -38,8 +39,11 @@ window.addEventListener("load", () => {
     }
 
 	function perder() {
+		puntaje = ((Date.now()-inicio) / 1000);
 		perdido = true;
-		document.getElementById("mensaje").innerHTML = "Has perdido... Da click en volver a jugar para intentar de nuevo"
+		document.getElementById("mensaje").innerHTML = "<h2>Has perdido... Da click en volver a jugar para intentar de nuevo</h2>"
+		var cantidadp = document.cookie = "puntaje=" + puntaje + "; expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
+		console.log(cantidadp);
 		tablero(minas)	
 	}
 
