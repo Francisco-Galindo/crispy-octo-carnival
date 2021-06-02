@@ -1,3 +1,21 @@
+@font-face {
+	font-family: 'Roboto';
+	src: url('../statics/fonts/Roboto/Roboto.ttf');
+	font-style: normal;
+	font-weight:normal;
+}
+h1{
+	font-size: 6.5rem;
+	font-family: "Roboto" !important;
+	color: orange;
+	margin-top: 10px;
+}
+
+h1, h2, h3, h4{
+	font-family: "Roboto" !important;
+	text-align: center;
+	color: orange;
+}
 body{
   background-color: #4B4453;
 }
@@ -38,3 +56,4 @@ main > *{
 #derrota {
 	display: none;
 }
+

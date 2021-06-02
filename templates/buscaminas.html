@@ -12,31 +12,14 @@
 	<link rel="stylesheet" href="../statics/styles/basics.css">
 	<link rel="stylesheet" href="../statics/styles/buscaminas.css">
 	<style>
-		@font-face {
-			font-family: 'Roboto';
-			src: url('../statics/fonts/Roboto/Roboto-Bold.ttf');
-			font-style: normal;
-			font-weight:normal;
-		}
-		h1{
-			font-size: 6.5rem;
-			text-align: center;
-			color: #50FFE1;
-			margin-top: 10px;
-		}
 
-		h1, h2, h3, h4{
-			font-family: "Roboto" !important;
-			color: #50FFE1;
-			text-align: center;
-		}
 
 	</style>
 </head>
 
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #885FBD;">
+	<nav class="navbar navbar-expand-lg navbar-dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">
 				<img src="../statics/img/octo.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
@@ -80,7 +63,32 @@
 		
 	</main>
 
-
+		<!-- Button trigger modal -->
+	<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+		Launch static backdrop modal
+	</button> -->
+	
+	<!-- Modal -->
+	<div id="modal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="staticBackdropLabel">Usuario</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+			
+				<label>Introduce un nombre:
+					<input type="text" class="form-control" id="input-usuario">
+				</label>
+			</div>
+			<div class="modal-footer">
+			<button id="mandar-usuario" type="button" class="btn btn-primary">Listo</button>
+			</div>
+		</div>
+		</div>
+	</div>
+	
 	<script src="../lib/bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js"></script>
 	<script src="../dynamics/js/cookies.js"></script>
 	<script src="../dynamics/js/juego_cookie.js"></script>

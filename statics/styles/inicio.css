@@ -5,26 +5,45 @@ p {
 
 body {
     overflow: hidden;
+    background-image: url("../img/fondomorado.png");
+    max-height:max-content;
+}
+h1{
+    font-family: 'Sahita';
+    src: url('../../../statics/fonts/Sahita/Sahitya-Bold.ttf');
+    font-size: 5rem;
+    color: orange;
+    
 }
 
-#juegos {
-    z-index: 1;
+.juegos {
+    display: flex;
+    top:10%;
+    flex-direction: column;
+    left: 10%;
+    flex-wrap: wrap;
+    margin-right: 50px;
 }
 
-#juegos>a>img:hover, #juegos>a:focus {
+#games>a>img:hover, #games>a:focus {
     width: 270px;
     height: 270px;
 }
+#games{
+    position: absolute;
+    left: 60%;
+}
 
 #division {
-    width: auto;
-    height: auto;
     display: flex;
     flex-direction: row;
+
+    display: flex;
+   
 }
 
 #espacio {
-    width: 75%;
+    width: 60%;
     background: none;
 }
 
@@ -102,7 +121,7 @@ body {
 
     h1 {
         color: #50FFE1;
-        font-size: 5.5rem;
+        font-size: 3.5rem;
         text-align: center;
     }
 
@@ -112,15 +131,19 @@ body {
 
     #division {
         flex-direction: column;
+        width: 100%;
     }
 
     #espacio {
+        flex-direction: column;
         width: auto;
         height: 620px;
     }
 
-    #juegos>a>img {
-        margin-left: 30%;
+    .juegos{
+        flex-direction: column;
+        margin-left: 10%;
+        flex-wrap: wrap;
     }
 
 }

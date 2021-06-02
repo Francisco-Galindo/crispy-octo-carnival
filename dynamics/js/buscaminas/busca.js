@@ -1,12 +1,23 @@
 window.addEventListener("load", () => {
 	const tablerominas = document.getElementById("tablerominas");
+	const modal = document.getElementById("modal");
+	modal.style.display = "block";
+    modal.style.paddingRight = "17px";
+    modal.className="modal fade show"; 
+	btn = document.getElementById("mandar-usuario");
+	btn.addEventListener("click", () => {
+		modal.style.display = "none";
+        modal.className="modal fade";
+		let usuario = document.getElementById("input-usuario").value;
+		setCookie("usuario",usuario)
+	})
 	document.getElementById("play").addEventListener("click", () => {
 		window.location.reload();
 	})
 
 	let tamano = 8;
 	let numBombas = tamano;
-	let puntaje;
+	let puntaje=0;
 	let perdido = false;
 	let click = 0;
 	let fecha = new Date();
@@ -29,16 +40,12 @@ window.addEventListener("load", () => {
         
 		let jugador = obtenercookie("usuario");
 		let puntajes = obtenercookie("puntajesMinas")
-		puntajes += `${jugador},${puntaje}|`;
+		puntajes += `${puntaje}s,${jugador}|`;
 		setCookie("puntajesMinas", puntajes);		
     }
 
 	function perder() {
-		puntaje = ((Date.now()-inicio) / 1000);
-		perdido = true;
 		document.getElementById("mensaje").innerHTML = "<h2>Has perdido... Da click en volver a jugar para intentar de nuevo</h2>"
-		var cantidadp = document.cookie = "puntaje=" + puntaje + "; expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30))  + "; path=/Octo/crispy-octo-carnival/";
-		console.log(cantidadp);
 		tablero(minas)	
 	}
 
@@ -152,7 +159,7 @@ window.addEventListener("load", () => {
 			do {
 				fil = Math.floor((Math.random() * tamano));
 				col = Math.floor((Math.random() * tamano));
-				console.log(fil, col)
+
 			} while (tablero[fil][col] == "*");
 			tablero[fil][col] = "*";
 
