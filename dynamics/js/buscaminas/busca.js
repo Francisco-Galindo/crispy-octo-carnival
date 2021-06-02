@@ -21,21 +21,16 @@ window.addEventListener("load", () => {
 		crearTablero();
 		generarBombas(minas);
 
-		for (i of minas) {
-			let cadena = "";
-			for (j of i) {
-				cadena += `, ${j}`
-			}
-			console.log(cadena)
-		}
-
 	}
 
     function terminar(){
         puntaje = ((Date.now()-inicio) / 1000);
         document.getElementById("mensaje").innerHTML = "<h2>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
-        var cantidadp = document.cookie = "puntaje=" + puntaje + "; expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30))  + "; path=/Octo/crispy-octo-carnival/";
-		console.log(cantidadp, 'wtf');
+        
+		let jugador = obtenercookie("usuario");
+		let puntajes = obtenercookie("puntajesMinas")
+		puntajes += `${jugador},${puntaje}|`;
+		setCookie("puntajesMinas", puntajes);		
     }
 
 	function perder() {
@@ -172,7 +167,6 @@ window.addEventListener("load", () => {
 		}
 	}
 
-
 	function contarCasillasNoAbiertas() {
 		let casillas = 0;
 		for (let i = 0; i < tamano; i++) {
@@ -199,24 +193,4 @@ window.addEventListener("load", () => {
 			}
 		}
 	}
-
-	// Inicia el juego XD
-	function iniciarJuego() {
-		minas = matriz();
-		crearTablero();
-		generarBombas(minas);
-
-		for (i of minas) {
-			let cadena = "";
-			for (j of i) {
-				cadena += `, ${j}`
-			}
-			console.log(cadena)
-		}
-
-	}
-
-	// Date.now()-inicio) / 1000;
-
-
 })

@@ -8,8 +8,15 @@ function obtenercookie(nombrecookie){
             return cookie[1];
         }
     }
-    return null;
+    return "";
 } 
+
+function setCookie(cookie, value) {
+    let week = new Date();
+    week.setTime(week.getTime() + 1000*60*24*7);
+
+    document.cookie=`${cookie}=${value}; expires=${week.toUTCString()}; path=/Octo/crispy-octo-carnival/`;
+}
 
 window.addEventListener("load", ()=>{
 
@@ -17,9 +24,9 @@ window.addEventListener("load", ()=>{
 
     // Cambia el color de fondo de la vista
     if(fondo=="blanco"){
-        document.body.style.background= "url('../statics/img/fondoclaro.png')";
+        document.body.style.background= "url('/Octo/crispy-octo-carnival/statics/img/fondoclaro.png')";
     }
     else if(fondo=="negro"){
-        document.body.style.background= "url('../statics/img/fondomorado.png')";
+        document.body.style.background= "url('/Octo/crispy-octo-carnival/statics/img/fondomorado.png')";
     }
 })

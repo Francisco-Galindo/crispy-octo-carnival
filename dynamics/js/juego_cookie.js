@@ -1,4 +1,6 @@
-function 
+function pedirNombreJugador() {
+    
+}
 
 window.addEventListener("load", () => {
 

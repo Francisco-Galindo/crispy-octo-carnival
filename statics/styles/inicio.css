@@ -1,10 +1,9 @@
 p {
     text-align: center;
-    color: #9DFFDC;
+    color: orange;
 }
 
 body {
-    background-image: url("../img/fondomorado.png");
     overflow: hidden;
 }
 

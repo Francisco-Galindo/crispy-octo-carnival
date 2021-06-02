@@ -1,5 +1,6 @@
 window.addEventListener("load", ()=>{
-    let puntosBM=document.getElementById("puntajesPBM");
+    let puntosPBM=document.getElementById("puntajesPBM");
+    let puntosBM=document.getElementById("puntajesPB");
 
-    
+    puntajesPBM = obtenercookie("puntajes").split('|')
 })
