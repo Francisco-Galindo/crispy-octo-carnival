@@ -5,6 +5,7 @@ window.addEventListener("load", () => {
 
     let tamano = 8;
     let puntaje = 0;
+    let puntos = 0;
     let perder = 0;
     let click = 0;
     let fecha = new Date();
@@ -44,12 +45,29 @@ window.addEventListener("load", () => {
 
     function abrirCelda() {
         click++;
-        let myId = this.id
-        abrirCasillasCercanas(myId[0], myId[1])
+        setTimeout(()=>{
+            if(click==1){
+                click=0;
+                let myId = this.id
+                abrirCasillasCercanas(myId[0], myId[1])
+            }
+            else{
+                let myId = this.id
+                var id = myId[0] + myId[1];
+                div = document.getElementById(id);
+                div.style.background = "#f3f3f3 url('../statics/img/bandera.png') no-repeat right top";
+                if (minas[ myId[0]][myId[1]] == "*") {
+                    puntaje+=20;
+                }
+            }
+            click = 0;
+        }, 300)
+        
     }
 
 
     function abrirCasillasCercanas(x, y) {
+        puntaje+=10;
         x = parseInt(x, 10);
         y = parseInt(y, 10);
 
@@ -77,7 +95,7 @@ window.addEventListener("load", () => {
     function mostrarContenido(x, y) {
         let id = `${x}${y}`;
         div = document.getElementById(id);
-        div.style.backgroundColor = "#FFFFFF";
+        div.style.backgroundColor = "#bfc3d6";
         div.innerHTML = minas[x][y];
     }
 
@@ -130,10 +148,16 @@ window.addEventListener("load", () => {
 
     }
 
+    jugar.addEventListener("click",()=>{
+        location.href="../templates/buscaminas.html";
+        puntaje=0;
+    })
 
     salvar.addEventListener("click", () => {
+        puntos = ((Date.now()-inicio) / 1000) + puntaje;
         document.body.innerHTML = "<h1>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
-        document.cookie = "puntaje=" + puntaje + " expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
+        var cantidadp = document.cookie = "puntaje=" + puntos + " expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
+        console.log(cantidadp);
     })
 
 })
