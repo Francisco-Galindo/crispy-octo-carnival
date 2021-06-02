@@ -1,4 +1,6 @@
 window.addEventListener("load", () => {
+    const jugar = document.getElementById("play");
+    const salvar = document.getElementById("Save");
 	const tablerominas = document.getElementById("tablerominas");
 	document.getElementById("play").addEventListener("click", () => {
 		window.location.reload();
@@ -13,6 +15,13 @@ window.addEventListener("load", () => {
 	let inicio = Date.now();
 	let minas;
 	iniciarJuego();
+
+    function terminar(){
+        puntos = ((Date.now()-inicio) / 1000) + puntaje;
+        document.body.innerHTML = "<h1>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
+        var cantidadp = document.cookie = "puntaje=" + puntos + " expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
+        console.log(cantidadp);
+    }
 
 	//Se crea una matriz del tamaño de la variable tamano, tanto de numero de columnas como de filas
 	function matriz() {
@@ -87,6 +96,7 @@ window.addEventListener("load", () => {
 
 			// Intenta abrir todas las casillas alrededor
 			for (let i = x - 1; i <= x + 1; i++) {
+                puntaje+=10;
 				for (let j = y - 1; j <= y + 1; j++) {
 					abrirCasillasCercanas(i, j)
 
@@ -100,7 +110,7 @@ window.addEventListener("load", () => {
 	function mostrarContenido(x, y) {
 		let id = `${x}${y}`;
 		div = document.getElementById(id);
-		div.style.backgroundColor = "#FFFFFF";
+		div.style.backgroundColor = "#bfc3d6";
 		div.innerHTML = minas[x][y];
 	}
 
@@ -134,6 +144,7 @@ window.addEventListener("load", () => {
 				let objDiv = document.getElementById(myid);
 				if (tablero[i][j] == "*") {
 					objDiv.style.background = "#f3f3f3 url('../statics/img/bomba.jpg') no-repeat right top";
+                    terminar();
 				}
 			}
 		}
