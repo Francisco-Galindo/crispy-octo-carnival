@@ -25,6 +25,7 @@ body {
 
 #espacio {
     width: 75%;
+    background: none;
 }
 
 #espacio>img:nth-child(2) {

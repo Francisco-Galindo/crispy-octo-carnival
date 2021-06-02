@@ -205,7 +205,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		pulpitos = [];
 		end = false;
 		map.iterateOverMap(map.initialise)
-		setMaxDistance();
 	
 		pulpitos.push(new Pulpito(TILESIZE, TILESIZE, "../statics/img/bomberman/sprites/pulpito_sprite_sheet_p1.png"));
 		pulpitos.push(new Pulpito((map[0].length - 2) * TILESIZE, (map.length - 2) * TILESIZE, "../statics/img/bomberman/sprites/pulpito_sprite_sheet_p2.png"));
