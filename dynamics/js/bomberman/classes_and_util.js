@@ -119,7 +119,6 @@ class Pulpito extends Entidad {
 			if (!this.isInsideBomb()) {
 				this.insideBomb = false;
 			}
-			console.log("xd")
 		}
 
 

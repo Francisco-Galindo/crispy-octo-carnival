@@ -1,8 +1,4 @@
 #espacio {
-    width: 1500px;
-    height: 600px;
-    margin-left: 200px;
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -11,6 +7,14 @@
 
 body {
     background-image: url("../img/fondomorado.png");
+    display: grid;
+    align-content: center;
 }
 
+@media screen and (max-width:800px) {
+    #espacio {
+        margin-left: 10px;
+        width: 650px;
+    }
+}
 
