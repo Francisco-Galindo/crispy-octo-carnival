@@ -1,13 +1,17 @@
 window.addEventListener("load", () => {
 	const tablerominas = document.getElementById("tablerominas");
+	document.getElementById("play").addEventListener("click", () => {
+		window.location.reload();
+	})
 
 	let tamano = 8;
+	let numBombas = tamano;
 	let puntaje;
-	let perder = false;
+	let perdido = false;
 	let click = 0;
 	let fecha = new Date();
 	let inicio = Date.now();
-	let minas = matriz();
+	let minas;
 	iniciarJuego();
 
 	//Se crea una matriz del tamaño de la variable tamano, tanto de numero de columnas como de filas
@@ -24,13 +28,19 @@ window.addEventListener("load", () => {
 
 	//Se crean y agregan los divs de cada celda al html
 	function crearTablero() {
+		tablerominas.innerHTML = ""
 		for (let i = 0; i < tamano; i++) {
 			for (let j = 0; j < tamano; j++) {
 				let div = document.createElement("div");
+				div.classList.add("casilla-cerrada")
 				div.id = i + "" + j;
 				//Se agrega el evento del click a cada celda.
-				if (!perder) {
+				if (!perdido) {
 					div.addEventListener("click", abrirCelda);
+					div.addEventListener("contextmenu", (evento) => {
+						evento.preventDefault();
+						ponerBandera(div);
+					})
 					tablerominas.appendChild(div);
 				}
 			}
@@ -39,11 +49,20 @@ window.addEventListener("load", () => {
 
 	// Cuenta un nuevo click y abre la casilla que recibió el evento
 	function abrirCelda() {
-		click++;
-		let myId = this.id
-		abrirCasillasCercanas(myId[0], myId[1])
+		if (!perdido) {
+			click++;
+			let myId = this.id
+			abrirCasillasCercanas(myId[0], myId[1])
+
+		}
+
 	}
 
+	function ponerBandera(div) {
+		if (!perdido) {
+			div.classList.toggle("casilla-bandera")
+		}
+	}
 
 	// Función recursiva que abre la casilla que llega como parámetro e intenta abrir todas las casillas colindantes
 	function abrirCasillasCercanas(x, y) {
@@ -59,6 +78,7 @@ window.addEventListener("load", () => {
 			mostrarContenido(x, y)
 		} else if (minas[x][y] == "*") {
 			// Terminar juego si se ha abierto una bomba
+			perder();
 			tablero(minas)
 		} else if (minas[x][y] == 0) {
 			// Abre la casilla vacía
@@ -88,7 +108,7 @@ window.addEventListener("load", () => {
 	function generarBombas(tablero) {
 		let fil = 0;
 		let col = 0;
-		for (let i = 0; i < tamano; i++) {
+		for (let i = 0; i < numBombas; i++) {
 			fil = Math.floor((Math.random() * tamano));
 			col = Math.floor((Math.random() * tamano));
 			tablero[fil][col] = "*";
@@ -121,6 +141,7 @@ window.addEventListener("load", () => {
 
 	// Inicia el juego XD
 	function iniciarJuego() {
+		minas = matriz();
 		crearTablero();
 		generarBombas(minas);
 
@@ -134,7 +155,12 @@ window.addEventListener("load", () => {
 
 	}
 
-	// Date.now()-inicio) / 1000;
+	function perder() {
+		perdido = true;
+
+	}
+
+	// puntaje = Date.now()-inicio) / 1000;
 
 
 })
