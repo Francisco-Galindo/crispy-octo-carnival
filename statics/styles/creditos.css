@@ -10,8 +10,14 @@ body {
     display: grid;
     align-content: center;
 }
+h1{
+    font-family: 'Sahita';
+    src: url('../../../statics/fonts/Sahita/Sahitya-Bold.ttf');
+    font-size: 5rem;
+    color: #9DFFDC;
+}
 
-@media screen and (max-width:800px) {
+@media screen and (max-width:800px ) {
     #espacio {
         margin-left: 10px;
         width: 650px;

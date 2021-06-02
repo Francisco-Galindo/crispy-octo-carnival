@@ -4,7 +4,7 @@
 }
 
 #espacio {
-    height: 580px;
+    height: 500px;
     flex-direction: row;
 }
 
@@ -15,7 +15,21 @@ body {
 h3 {
     color: #010033;
 }
+h1{
+    font-family: 'Sahitya';
+    src: url('../fonts/Sahita/Sahitya-Bold.ttf');
+    font-size: 5rem;
+    color: #9DFFDC;
+}
+#black:hover {
+    width: 500px;
+    height: 300px;
+}
 
+#white:hover {
+    width: 500px;
+    height: 300px;
+}
 @media screen and (max-width:800px) {
     #espacio {
         width: 93%;
@@ -37,9 +51,12 @@ h3 {
 
     #black:hover {
         width: 500px;
+        height: 300px;
     }
+    
 
     #white:hover {
         width: 500px;
+        height: 300px;
     }
 }
