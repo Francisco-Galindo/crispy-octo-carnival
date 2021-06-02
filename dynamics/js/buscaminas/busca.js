@@ -1,17 +1,14 @@
 window.addEventListener("load", () => {
-    const jugar = document.getElementById("play");
-    const salvar = document.getElementById("Save");
     const tablerominas = document.getElementById("tablerominas");
 
     let tamano = 8;
-    let puntaje = 0;
-    let perder = 0;
+    let puntaje;
+    let perder = false;
     let click = 0;
     let fecha = new Date();
     let inicio = Date.now();
     let minas = matriz();
     iniciarJuego();
-
 
     //Se crea una matriz del tamaño de la variable tamano, tanto de numero de columnas como de filas
     function matriz() {
@@ -25,7 +22,6 @@ window.addEventListener("load", () => {
         return tabla;
     }
 
-
     //Se crean y agregan los divs de cada celda al html
     function crearTablero() {
         for (let i = 0; i < tamano; i++) {
@@ -33,7 +29,7 @@ window.addEventListener("load", () => {
                 let div = document.createElement("div");
                 div.id = i + "" + j;
                 //Se agrega el evento del click a cada celda.
-                if (perder == 0) {
+                if (!perder) {
                     div.addEventListener("click", abrirCelda);
                     tablerominas.appendChild(div);
                 }
@@ -41,7 +37,7 @@ window.addEventListener("load", () => {
         }
     }
 
-
+    // Cuenta un nuevo click y abre la casilla que recibió el evento
     function abrirCelda() {
         click++;
         let myId = this.id
@@ -49,31 +45,38 @@ window.addEventListener("load", () => {
     }
 
 
+    // Función recursiva que abre la casilla que llega como parámetro e intenta abrir todas las casillas colindantes
     function abrirCasillasCercanas(x, y) {
         x = parseInt(x, 10);
         y = parseInt(y, 10);
 
+        // Si la casilla está fuera del tablero, regresar
         if (x < 0 || x >= tamano || y < 0 || y >= tamano) {
             return;
         }
+        // Mostrar el contenido de la casilla si tiene bombas cerca o tiene una bomba
         if (minas[x][y] != "*" && minas[x][y] != 0) {
             mostrarContenido(x, y)
         } else if (minas[x][y] == "*") {
+            // Terminar juego si se ha abierto una bomba
             tablero(minas)
         } else if (minas[x][y] == 0) {
+            // Abre la casilla vacía
             minas[x][y] = "_"
             mostrarContenido(x, y)
-            abrirCasillasCercanas(x - 1, y - 1)
-            abrirCasillasCercanas(x, y - 1)
-            abrirCasillasCercanas(x + 1, y - 1)
-            abrirCasillasCercanas(x - 1, y)
-            abrirCasillasCercanas(x + 1, y)
-            abrirCasillasCercanas(x - 1, y + 1)
-            abrirCasillasCercanas(x, y + 1)
-            abrirCasillasCercanas(x + 1, y + 1)
+
+            // Intenta abrir todas las casillas alrededor
+            for (let i = x - 1; i <= x + 1; i++) {
+                for (let j = y - 1; j <= y + 1; j++) {
+                    abrirCasillasCercanas(i, j)
+
+                }
+            }
         }
     }
 
+
+    // Muestra en el html el contenido de la casilla
     function mostrarContenido(x, y) {
         let id = `${x}${y}`;
         div = document.getElementById(id);
@@ -116,6 +119,7 @@ window.addEventListener("load", () => {
         }
     }
 
+    // Inicia el juego XD
     function iniciarJuego() {
         crearTablero();
         generarBombas(minas);
@@ -130,10 +134,7 @@ window.addEventListener("load", () => {
 
     }
 
+    // Date.now()-inicio) / 1000;
 
-    salvar.addEventListener("click", () => {
-        document.body.innerHTML = "<h1>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
-        document.cookie = "puntaje=" + puntaje + " expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
-    })
 
 })
