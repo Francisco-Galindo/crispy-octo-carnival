@@ -7,7 +7,7 @@ window.addEventListener("load", () => {
 	})
 
 	let tamano = 8;
-	let numBombas = 2;
+	let numBombas = tamano;
 	let puntaje;
 	let perdido = false;
 	let click = 0;
@@ -16,11 +16,33 @@ window.addEventListener("load", () => {
 	let minas;
 	iniciarJuego();
 
+	// Inicia el juego XD
+	function iniciarJuego() {
+		minas = matriz();
+		crearTablero();
+		generarBombas(minas);
+
+		for (i of minas) {
+			let cadena = "";
+			for (j of i) {
+				cadena += `, ${j}`
+			}
+			console.log(cadena)
+		}
+
+	}
+
     function terminar(){
         puntos = ((Date.now()-inicio) / 1000) + puntaje;
         document.getElementById("mensaje").innerHTML = "<h2>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
-        var cantidadp = document.cookie = "puntaje=" + puntos + " expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
+        var cantidadp = document.cookie = "puntaje=" + puntos + "; expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
     }
+
+	function perder() {
+		perdido = true;
+		document.getElementById("mensaje").innerHTML = "Has perdido... Da click en volver a jugar para intentar de nuevo"
+		tablero(minas)	
+	}
 
 	//Se crea una matriz del tamaño de la variable tamano, tanto de numero de columnas como de filas
 	function matriz() {
@@ -106,7 +128,6 @@ window.addEventListener("load", () => {
 
 			// Intenta abrir todas las casillas alrededor
 			for (let i = x - 1; i <= x + 1; i++) {
-                puntaje+=10;
 				for (let j = y - 1; j <= y + 1; j++) {
 					abrirCasillasCercanas(i, j)
 
@@ -114,7 +135,6 @@ window.addEventListener("load", () => {
 			}
 		}
 	}
-
 
 	// Muestra en el html el contenido de la casilla
 	function mostrarContenido(x, y) {
@@ -149,6 +169,7 @@ window.addEventListener("load", () => {
 		}
 	}
 
+
 	function contarCasillasNoAbiertas() {
 		let casillas = 0;
 		for (let i = 0; i < tamano; i++) {
@@ -156,15 +177,12 @@ window.addEventListener("load", () => {
 				let myid = i + "" + j;
 				let objDiv = document.getElementById(myid);
 				if (objDiv.classList.contains("casilla-cerrada")) {
-					console.log(objDiv.classList.contains("casilla-cerrada"))
 					casillas++;
 				}
 			}
 		}
-		console.log(casillas)
 		return casillas;
 	}
-
 
 	//Muestra la posicion de las bombas en el tablero al perder
 	function tablero(tablero) {
@@ -178,31 +196,4 @@ window.addEventListener("load", () => {
 			}
 		}
 	}
-
-	// Inicia el juego XD
-	function iniciarJuego() {
-		minas = matriz();
-		crearTablero();
-		generarBombas(minas);
-
-		for (i of minas) {
-			let cadena = "";
-			for (j of i) {
-				cadena += `, ${j}`
-			}
-			console.log(cadena)
-		}
-
-	}
-
-	function perder() {
-		perdido = true;
-		document.getElementById("mensaje").innerHTML = "Has perdido... Da click en volver a jugar para intentar de nuevo"
-		tablero(minas)
-		
-	}
-
-	// puntaje = Date.now()-inicio) / 1000;
-
-
 })
