@@ -20,6 +20,6 @@ window.addEventListener("load", ()=>{
     }
     else if(fondo=="negro"){
         console.log("n");
-        letras.style.background= "url('./statics/img/fondomorado.png')";
+        document.body.style.background= "url('./statics/img/fondomorado.png')";
     }
 })

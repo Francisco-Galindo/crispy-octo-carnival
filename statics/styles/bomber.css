@@ -14,8 +14,9 @@ main {
     height: 35vw;
     background-color: #081329;
     margin: auto;
-    margin-top: 5em;
+    margin-top: 3em;
 }
+
 *:focus {
     outline: none;
 }
