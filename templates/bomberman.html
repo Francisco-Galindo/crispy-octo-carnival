@@ -10,11 +10,22 @@
 	<link rel="stylesheet" href="../statics/styles/basics.css">
 	<link rel="stylesheet" href="../statics/styles/bomber.css">
 	<title>Bomberman</title>
+	<style>
+		#mensaje{
+			text-align: center;
+			color: #50FFE1;
+		}
+		#contenedor{
+			display: flex;
+			flex-direction: column;
+			margin-left: 30%;
+		}
+	</style>
 </head>
 
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #885FBD;">
+	<nav class="navbar navbar-expand-lg navbar-dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">
 				<img src="../statics/img/octo.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
@@ -43,8 +54,15 @@
 		</div>
 	</nav>
 	<main>
-		<div id="juego" tabindex="0">
-			<canvas id="juego-canvas"></canvas>
+		<div id="contenedor">
+			<div id="mensaje">
+				<h1>Bomberman</h1>
+				<h2>¿Como se juega?</h2>
+				<h2>Instrucciones bonitas</h2>
+			</div>
+			<div id="juego" tabindex="0">
+				<canvas id="juego-canvas"></canvas>
+			</div>
 		</div>
 	</main>
 
@@ -52,6 +70,7 @@
 
 
 	<script src="../lib/bootstrap-5.0.1-dist/js/bootstrap.bundle.min.js"></script>
+	<script src="../dynamics/js/cookies.js"></script>
 	<script src="../dynamics/js/bomberman/classes_and_util.js"></script>
 	<script src="../dynamics/js/bomberman/pseudo_ai.js"></script>
 	<script src="../dynamics/js/bomberman/main.js"></script>

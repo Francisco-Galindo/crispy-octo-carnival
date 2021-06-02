@@ -5,8 +5,8 @@ window.addEventListener("load", () => {
 	})
 
 	let tamano = 8;
-	let numBombas = 2;
-	let puntaje;
+	let numBombas = tamano;
+	let puntaje=0;
 	let perdido = false;
 	let click = 0;
 	let fecha = new Date();
@@ -35,12 +35,15 @@ window.addEventListener("load", () => {
         puntaje = ((Date.now()-inicio) / 1000);
         document.getElementById("mensaje").innerHTML = "<h2>¡FIN DEL JUEGO!</h1><br><h2>Tiempo(s): " + (Date.now()-inicio) / 1000 + "</h2>";
         var cantidadp = document.cookie = "puntaje=" + puntaje + "; expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
-		console.log(cantidadp);
+		console.log(cantidadp, 'wtf');
     }
 
 	function perder() {
+		puntaje = ((Date.now()-inicio) / 1000);
 		perdido = true;
 		document.getElementById("mensaje").innerHTML = "<h2>Has perdido... Da click en volver a jugar para intentar de nuevo</h2>"
+		var cantidadp = document.cookie = "puntaje=" + puntaje + "; expires=" + fecha.toGMTString(fecha.setTime(fecha.getTime() + 1000 * 60 * 30));
+		console.log(cantidadp);
 		tablero(minas)	
 	}
 

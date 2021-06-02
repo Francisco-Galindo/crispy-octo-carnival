@@ -1,6 +1,4 @@
 window.addEventListener("load", ()=>{
-    let puntosBM=document.getElementById("puntajesPBM");
-
     function obtenercookie(nombrecookie){
         let cookies = document.cookie;
         let arreglo = cookies.split('; ');
@@ -12,18 +10,9 @@ window.addEventListener("load", ()=>{
         }
     } 
 
-    var fondo=obtenercookie('fondo');
+    let puntosBM=document.getElementById("puntajesPBM");
+    let pbm=obtenercookie("puntaje");
 
-    if(fondo=="blanco"){
-        console.log("blanco");
-        document.body.style.background= "url('../statics/img/fondoclaro.png')";
-    }
-    else if(fondo=="negro"){
-        console.log("n");
-        document.body.style.background= "url('../statics/img/fondomorado.png')";
-    }
-
-    var puntajePBM=obtenercookie('puntaje');
-    console.log(puntajePBM);
-    puntosBM.innerHTML="<h3>"+puntajePBM+"</>";
+    puntosBM.innerHTML="<h2>"+pbm+"</h2>"
+    
 })

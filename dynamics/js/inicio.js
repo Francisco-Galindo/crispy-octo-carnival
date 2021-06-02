@@ -15,11 +15,11 @@ window.addEventListener("load", ()=>{
 
     if(fondo=="blanco"){
         console.log("blanco");
-        document.body.style.background= "url('../statics/img/fondoclaro.png')";
+        document.body.style.background= "url('./statics/img/fondoclaro.png')";
         
     }
     else if(fondo=="negro"){
         console.log("n");
-        letras.style.background= "url('../statics/img/fondomorado.png')";
+        document.body.style.background= "url('./statics/img/fondomorado.png')";
     }
 })
