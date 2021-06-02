@@ -14,7 +14,6 @@ window.addEventListener("load", () => {
 	//Se crea una matriz del tamaño de la variable tamano, tanto de numero de columnas como de filas
 	function matriz() {
 		const tabla = [];
-		const linea = [];
 		for (let i = 0; i < tamano; i++) {
 			tabla[i] = [];
 			for (let j = 0; j < tamano; j++) {
